@@ -10,10 +10,7 @@ public class Read {
 
     static void displayEmployees(ArrayList<String> employees){
         for(String employee: employees)
-            if (employees.contains("justin")){
-                System.out.println("we may have to ban someone..." + employee);
-            }
-
+            System.out.println(employee);
 
     }// end displayEmployees
 
@@ -41,5 +38,11 @@ public class Read {
             System.out.println("Error reading file.");
         }// end catch 3 ( it seems that this one is the one that controls the file error thing. or it isn't. Who knows? )
     }// end readfile
+
+    static void getName(ArrayList<String> employees){
+        // this will just be made in findword for convenience
+    }
+
+
 }
 

@@ -7,6 +7,8 @@ public class findword {
     public static void main(String args[]) throws FileNotFoundException {
         //Reading the word to be found from the user
 
+        while (true){
+        ArrayList<String> name = new ArrayList<String>();
 
         Scanner sc1 = new Scanner(System.in);
         System.out.println("Enter the word to be found");
@@ -25,6 +27,7 @@ public class findword {
             if(line.indexOf(word)!=-1) {
                 flag = true;
                 count = count+1;
+                name.add(word);
             }
         }
 
@@ -37,7 +40,9 @@ public class findword {
         } else {
             System.out.println("File does not contain the specified word");
         }
-    }
+            System.out.println(name);
+        }
+    }// end psvm
 
     public void getAll (){
         ArrayList<String> bacon = new ArrayList<String>();
@@ -49,3 +54,4 @@ public class findword {
 
 
 }
+// for next time add all the found words into a text file with .ban at the beginning :)
