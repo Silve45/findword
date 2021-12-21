@@ -57,12 +57,19 @@ public class findword {
         String N = "N";
         ArrayList<String> name = new ArrayList<String>();
 
+
         //starts the while true stuff
         while (true){
 
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("Enter the word to be found");
+        System.out.println("Enter the word to be found (-1 to exit)");
         String word = sc1.next();
+
+        //adding so that I can exit out of while loop
+        if (word.equalsIgnoreCase("-1")){
+            System.out.println("exiting");
+            break;
+        }
 
         boolean flag = false;
         int count = 0;
@@ -108,7 +115,31 @@ public class findword {
         }
             // justs prints out elements in arraylist
             System.out.println(name);
+        }//end giant while
+
+        System.out.println("Words are: ");
+//        for(String names:name){
+//            System.out.println(names);
+//        } // elimainating the middle class :)
+
+        String names = null;
+        for (int i = 0; i < name.size(); i++){
+             names = name.get(i);
+            System.out.println(names);
         }
+        // I also followed a turtorial for this too
+
+        try(FileWriter fw = new FileWriter(String.valueOf(g5),true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw)) {
+            for (int i = 0; i < name.size(); i++){
+                pw.println(".ban" + name.get(i));
+            }
+
+        }catch (IOException i){
+//            i.printStackTrace();
+        }
+
     }// end psvm
 
 
