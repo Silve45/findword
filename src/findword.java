@@ -66,7 +66,7 @@ public class findword {
         System.out.println("Enter the word to be found (-1 to exit)");
         String word = sc1.next();
         if (wu.contains(word)){
-            System.out.println("Use a different word");
+            System.out.println("Word already on blacklist");
             continue;
         }
 
@@ -90,14 +90,14 @@ public class findword {
             if(line.contains(word)) {
                 flag = true;
                 count = count+1;
-                if(ga.isEmpty()){
+                if(name.isEmpty()){
                     ga.add(line);
-//                    System.out.println(ga);
                 }//end if
                 else if (name.contains(line)){
                     ga.remove(ga);
                 }
-                else {ga.add(0,line);
+                else {
+                    ga.add(line);
                     System.out.println("burger");
                 }//end else
             }// end line .contains
