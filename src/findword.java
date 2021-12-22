@@ -57,6 +57,7 @@ public class findword {
         String N = "N";
         ArrayList<String> name = new ArrayList<String>();
         ArrayList<String> wu = new ArrayList<String>();
+        ArrayList<String> ga = new ArrayList<String>();
 
         //starts the while true stuff
         while (true){
@@ -89,17 +90,18 @@ public class findword {
             if(line.contains(word)) {
                 flag = true;
                 count = count+1;
-                if(name.isEmpty()){
-                    name.add(line);
+                if(ga.isEmpty()){
+                    ga.add(line);
+//                    System.out.println(ga);
                 }//end if
                 else if (name.contains(line)){
-                    name.remove(name);
+                    ga.remove(ga);
                 }
-                else {name.add(0,line);
+                else {ga.add(0,line);
+                    System.out.println("burger");
                 }//end else
             }// end line .contains
         }//end small while
-
 
         if(flag) {
             System.out.println("File contains the specified word");
@@ -109,12 +111,16 @@ public class findword {
             check = sc1.nextLine();
             if (check.equalsIgnoreCase(Y)){
                 System.out.println("Adding occurrence(s)");
+                for (int i = 0;  i < ga.size(); i++){
+                    name.add(ga.get(i));
+                }
                 wu.add(word);
+                ga.clear();
                 break;
             }
             else if (check.equalsIgnoreCase(N)){
                 System.out.println("Occurrence(s) not added");
-                name.remove(name);//this needs to be line or an equivalent
+                ga.clear();//this needs to be line or an equivalent
                 break;
             }
             else{
@@ -140,7 +146,6 @@ public class findword {
              names = name.get(i);
             System.out.println(names);
         }
-        // I also followed a turtorial for this too
 
         try(FileWriter fw = new FileWriter(String.valueOf(g5),true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -154,6 +159,4 @@ public class findword {
         }
 
     }// end psvm
-
-
 }
