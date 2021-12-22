@@ -56,7 +56,7 @@ public class findword {
         String Y = "Y";
         String N = "N";
         ArrayList<String> name = new ArrayList<String>();
-
+        ArrayList<String> wu = new ArrayList<String>();
 
         //starts the while true stuff
         while (true){
@@ -64,6 +64,12 @@ public class findword {
         Scanner sc1 = new Scanner(System.in);
         System.out.println("Enter the word to be found (-1 to exit)");
         String word = sc1.next();
+        if (wu.contains(word)){
+            System.out.println("Use a different word");
+            continue;
+        }
+
+
 
         //adding so that I can exit out of while loop
         if (word.equalsIgnoreCase("-1")){
@@ -74,8 +80,9 @@ public class findword {
         boolean flag = false;
         int count = 0;
         System.out.println("Contents of the line");
-        //Reading the contents of the file, it seems this person used a scanner for all the occurrences of the words
+        //Reading the contents of the file
         Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
+
         while(sc2.hasNextLine()) {
             String line = sc2.nextLine();
             System.out.println(line);
@@ -85,11 +92,15 @@ public class findword {
                 if(name.isEmpty()){
                     name.add(line);
                 }//end if
+                else if (name.contains(line)){
+                    name.remove(name);
+                }
                 else {name.add(0,line);
                 }//end else
-
             }// end line .contains
         }//end small while
+
+
         if(flag) {
             System.out.println("File contains the specified word");
             System.out.println("Number of occurrences is: "+count);
@@ -98,11 +109,12 @@ public class findword {
             check = sc1.nextLine();
             if (check.equalsIgnoreCase(Y)){
                 System.out.println("Adding occurrence(s)");
+                wu.add(word);
                 break;
             }
             else if (check.equalsIgnoreCase(N)){
                 System.out.println("Occurrence(s) not added");
-                name.remove(0);
+                name.remove(name);//this needs to be line or an equivalent
                 break;
             }
             else{
@@ -114,13 +126,14 @@ public class findword {
             System.out.println("File does not contain the specified word");
         }
             // justs prints out elements in arraylist
+            System.out.println("Words in ban list");
             System.out.println(name);
+            //prints out elements in blacklist
+            System.out.println("Blacklisted words");
+            System.out.println(wu);
         }//end giant while
 
         System.out.println("Words are: ");
-//        for(String names:name){
-//            System.out.println(names);
-//        } // elimainating the middle class :)
 
         String names = null;
         for (int i = 0; i < name.size(); i++){
@@ -144,4 +157,3 @@ public class findword {
 
 
 }
-// for next time add all the found words into a text file with .ban at the beginning :)
