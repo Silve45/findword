@@ -78,6 +78,12 @@ public class findword {
             break;
         }
 
+        if (word.equalsIgnoreCase("-2")){
+            System.out.println("rechecking document for new occurrences of blacklist words");
+            word = String.valueOf(wu.get(0));
+            System.out.println(word);
+        }
+
         boolean flag = false;
         int count = 0;
         System.out.println("Contents of the line");
@@ -130,6 +136,7 @@ public class findword {
            }// end small while
         } else {
             System.out.println("File does not contain the specified word");
+            ga.clear();
         }
             // justs prints out elements in arraylist
             System.out.println("Words in ban list");
@@ -137,6 +144,7 @@ public class findword {
             //prints out elements in blacklist
             System.out.println("Blacklisted words");
             System.out.println(wu);
+//            ga.clear();
         }//end giant while
 
         System.out.println("Words are: ");
