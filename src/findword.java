@@ -118,9 +118,18 @@ public class findword {
             if (check.equalsIgnoreCase(Y)){
                 System.out.println("Adding occurrence(s)");
                 name.addAll(ga);// replaced for loop, because it said I could
-                wu.add(word);
-                ga.clear();
-                break;
+
+
+                //this code is supposed to add a new banned word and ignore old (FIXED!!!)
+                if(wu.contains(word)){
+                    ga.clear();
+                    break;
+                }
+                else {
+                    wu.add(word);
+                    ga.clear();
+                    break;
+                }
             }
             else if (check.equalsIgnoreCase(N)){
                 System.out.println("Occurrence(s) not added");
@@ -166,3 +175,5 @@ public class findword {
 
     }// end psvm
 }
+//problem 1 it only calls the first blacklist word
+//problem 2 it re-puts the blacklist word into the thing and does it again
