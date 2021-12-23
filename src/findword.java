@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class findword {
-    public static void main(String args[]) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
         // going to try and create a way to create directories
         Path p = Paths.get("C:/");
         Path p1 = Paths.get("George");
@@ -55,9 +55,9 @@ public class findword {
         String check;
         String Y = "Y";
         String N = "N";
-        ArrayList<String> name = new ArrayList<String>();
-        ArrayList<String> wu = new ArrayList<String>();
-        ArrayList<String> ga = new ArrayList<String>();
+        ArrayList<String> name = new ArrayList<>();
+        ArrayList<String> wu = new ArrayList<>();
+        ArrayList<String> ga = new ArrayList<>();
 
         //starts the while true stuff
         while (true){
@@ -117,9 +117,7 @@ public class findword {
             check = sc1.nextLine();
             if (check.equalsIgnoreCase(Y)){
                 System.out.println("Adding occurrence(s)");
-                for (int i = 0;  i < ga.size(); i++){
-                    name.add(ga.get(i));
-                }
+                name.addAll(ga);// replaced for loop, because it said I could
                 wu.add(word);
                 ga.clear();
                 break;
@@ -131,7 +129,7 @@ public class findword {
             }
             else{
                 System.out.println("Please use Y or N");
-                continue;
+                //took out continue, because it said I could
             }
            }// end small while
         } else {
@@ -149,7 +147,7 @@ public class findword {
 
         System.out.println("Words are: ");
 
-        String names = null;
+        String names;
         for (int i = 0; i < name.size(); i++){
              names = name.get(i);
             System.out.println(names);
