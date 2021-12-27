@@ -61,7 +61,7 @@ public class findword {
         while (true){
 
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words)");
+        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words, -3 to manually add blacklist words)");
         String word = sc1.next();
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
@@ -77,23 +77,39 @@ public class findword {
         }
 
         if (word.equalsIgnoreCase("-3")){
-            System.out.println("Manually add words to black list, -1 to exit");
+            System.out.println("Manually add words to black list, -1 to exit, -2 to undo last word");
             System.out.println("Please make sure to use re-go to check occurrences of new words");
             while(true){
                 Scanner a1 = new Scanner(System.in);
                 String a2 = a1.nextLine();
+                int last = wu.size() - 1;
                 if (a2.equals("-1")){
                     break;
                 }
+                else if (a2.equals("-2")){
+                    try {
+                        wu.remove(last);
+                        System.out.println("Undoing");
+                        System.out.println("Result " + wu);
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("No words to undo");
+                    }
+
+                }
                 else {
+                    if (wu.contains(a2)){
+                        System.out.println("Blacklist contains that word");
+                    }
+                    else {
                     wu.add(a2);
                     System.out.println("Added words are: ");
-                    System.out.println(wu);
+                    System.out.println(wu);}
+
                 }
 
             }
             continue;
-        }
+        }//end -3
 
         if (word.equalsIgnoreCase("-2")){
             System.out.println("rechecking document for new occurrences of blacklist words");
