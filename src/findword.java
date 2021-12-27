@@ -80,9 +80,78 @@ public class findword {
 
         if (word.equalsIgnoreCase("-2")){
             System.out.println("rechecking document for new occurrences of blacklist words");
-            word = String.valueOf(wu.get(0));
-            System.out.println(word);
-        }
+            for(int i = 0; i < wu.size(); i++) {
+                word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
+                System.out.println(word);
+
+                boolean flag = false;
+                int count = 0;
+                Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
+
+                while(sc2.hasNextLine()) {
+                    String line = sc2.nextLine();
+//                    System.out.println(line);
+                    if(line.contains(word)) {
+                        flag = true;
+                        count = count+1;
+                        if(name.isEmpty()){
+                            ga.add(line);
+                        }//end if
+                        else if (name.contains(line)){
+                            ga.remove(ga);
+                        }
+                        else {
+                            ga.add(line);
+                        }//end else
+                    }// end line .contains
+                }//end small while
+
+                if(flag) {
+                    System.out.println("File contains the specified word");
+                    System.out.println("Number of occurrences is: "+count);
+                    System.out.println("Although File contains the word, it may be looking at previously added words. This program will only add new occurrences, so even if you press y, no dupilicates will be added");
+                    System.out.println("Add occurrence(s) to ban list?");
+                    while (true){
+                        check = sc1.nextLine();
+                        if (check.equalsIgnoreCase(Y)){
+                            System.out.println("Adding occurrence(s)");
+                            name.addAll(ga);// replaced for loop, because it said I could
+
+
+                            //this code is supposed to add a new banned word and ignore old (FIXED!!!)
+                            if(wu.contains(word)){
+                                ga.clear();
+                                break;
+                            }
+                            else {
+                                wu.add(word);
+                                ga.clear();
+                                break;
+                            }
+                        }
+                        else if (check.equalsIgnoreCase(N)){
+                            System.out.println("Occurrence(s) not added");
+                            ga.clear();//this needs to be line or an equivalent
+                            break;
+                        }
+                        else{
+                            System.out.println("Please use Y or N");
+                            //took out continue, because it said I could
+                        }
+                    }// end small while
+                } else {
+                    System.out.println("File does not contain the specified word");
+                    ga.clear();
+                }
+                // justs prints out elements in arraylist
+                System.out.println("Words in ban list");
+                System.out.println(name);
+                //prints out elements in blacklist
+                System.out.println("Blacklisted words");
+                System.out.println(wu);
+            }//end giant for
+            continue;
+        }//end -2 if
 
         boolean flag = false;
         int count = 0;
@@ -166,7 +235,7 @@ public class findword {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw)) {
             for (int i = 0; i < name.size(); i++){
-                pw.println(".ban" + name.get(i));
+                pw.println("/ban" + name.get(i));
             }
 
         }catch (IOException i){
