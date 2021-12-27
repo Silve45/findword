@@ -76,6 +76,25 @@ public class findword {
             break;
         }
 
+        if (word.equalsIgnoreCase("-3")){
+            System.out.println("Manually add words to black list, -1 to exit");
+            System.out.println("Please make sure to use re-go to check occurrences of new words");
+            while(true){
+                Scanner a1 = new Scanner(System.in);
+                String a2 = a1.nextLine();
+                if (a2.equals("-1")){
+                    break;
+                }
+                else {
+                    wu.add(a2);
+                    System.out.println("Added words are: ");
+                    System.out.println(wu);
+                }
+
+            }
+            continue;
+        }
+
         if (word.equalsIgnoreCase("-2")){
             System.out.println("rechecking document for new occurrences of blacklist words");
             for(int i = 0; i < wu.size(); i++) {
