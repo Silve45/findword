@@ -63,7 +63,7 @@ public class findword {
         while (true){
 
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("Enter the word to be found (-1 to exit)");
+        System.out.println("Enter the word to be found (-1 to exit, -2 to re-go over blacklist words)");
         String word = sc1.next();
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
@@ -86,7 +86,7 @@ public class findword {
 
                 boolean flag = false;
                 int count = 0;
-                Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
+                Scanner sc2 = new Scanner(new FileInputStream("C:/George/big/big.txt"));
 
                 while(sc2.hasNextLine()) {
                     String line = sc2.nextLine();
@@ -157,11 +157,11 @@ public class findword {
         int count = 0;
         System.out.println("Contents of the line");
         //Reading the contents of the file
-        Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
+        Scanner sc2 = new Scanner(new FileInputStream("C:/George/big/big.txt"));
 
         while(sc2.hasNextLine()) {
             String line = sc2.nextLine();
-            System.out.println(line);
+//            System.out.println(line);
             if(line.contains(word)) {
                 flag = true;
                 count = count+1;
@@ -173,7 +173,7 @@ public class findword {
                 }
                 else {
                     ga.add(line);
-                    System.out.println("burger");
+//                    System.out.println("burger");
                 }//end else
             }// end line .contains
         }//end small while
