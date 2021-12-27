@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
-        // going to try and create a way to create directories
+        //create a way to create directories
         Path p = Paths.get("C:/");
         Path p1 = Paths.get("George");
         Path p2 = Paths.get("names");
@@ -44,8 +44,6 @@ public class findword {
             }//end if
 
         }//end try
-//        catch (NoSuchFileException i){
-//            System.out.println(i);} I don't need this anymore
          catch (IOException e){
             System.err.println(e);
         }
@@ -63,7 +61,7 @@ public class findword {
         while (true){
 
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("Enter the word to be found (-1 to exit, -2 to re-go over blacklist words)");
+        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words)");
         String word = sc1.next();
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
@@ -82,18 +80,24 @@ public class findword {
             System.out.println("rechecking document for new occurrences of blacklist words");
             for(int i = 0; i < wu.size(); i++) {
                 word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
-                System.out.println(word);
+                System.out.println("\nWord being checked is " + word);
 
                 boolean flag = false;
                 int count = 0;
-                Scanner sc2 = new Scanner(new FileInputStream("C:/George/big/big.txt"));
+                Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
 
                 while(sc2.hasNextLine()) {
                     String line = sc2.nextLine();
 //                    System.out.println(line);
                     if(line.contains(word)) {
                         flag = true;
-                        count = count+1;
+                        if(!name.contains(line)){
+                            count = count+1;
+                        }
+                        else{
+                            continue;
+                        }
+
                         if(name.isEmpty()){
                             ga.add(line);
                         }//end if
@@ -108,15 +112,19 @@ public class findword {
 
                 if(flag) {
                     System.out.println("File contains the specified word");
-                    System.out.println("Number of occurrences is: "+count);
-                    System.out.println("Although File contains the word, it may be looking at previously added words. This program will only add new occurrences, so even if you press y, no dupilicates will be added");
-                    System.out.println("Add occurrence(s) to ban list?");
+                    System.out.println("Number of new occurrences is: "+count);
+                    if (count != 0){
+                        System.out.println("Add occurrence(s) to ban list?");}
                     while (true){
-                        check = sc1.nextLine();
+                       if (count != 0){
+                        check = sc1.nextLine();}
+                       else {
+                           check = "A";
+                       }
+
                         if (check.equalsIgnoreCase(Y)){
                             System.out.println("Adding occurrence(s)");
                             name.addAll(ga);// replaced for loop, because it said I could
-
 
                             //this code is supposed to add a new banned word and ignore old (FIXED!!!)
                             if(wu.contains(word)){
@@ -132,6 +140,10 @@ public class findword {
                         else if (check.equalsIgnoreCase(N)){
                             System.out.println("Occurrence(s) not added");
                             ga.clear();//this needs to be line or an equivalent
+                            break;
+                        }
+                        else if (count == 0){
+                            System.out.println("No new words to add.");
                             break;
                         }
                         else{
@@ -157,14 +169,22 @@ public class findword {
         int count = 0;
         System.out.println("Contents of the line");
         //Reading the contents of the file
-        Scanner sc2 = new Scanner(new FileInputStream("C:/George/big/big.txt"));
+        Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
 
         while(sc2.hasNextLine()) {
             String line = sc2.nextLine();
-//            System.out.println(line);
+            System.out.println(line);
             if(line.contains(word)) {
                 flag = true;
-                count = count+1;
+
+                if(!name.contains(line)){
+                    count = count+1;
+                }
+                else{
+                    continue;
+                }
+
+
                 if(name.isEmpty()){
                     ga.add(line);
                 }//end if
@@ -180,8 +200,9 @@ public class findword {
 
         if(flag) {
             System.out.println("File contains the specified word");
-            System.out.println("Number of occurrences is: "+count);
-            System.out.println("Add occurrence(s) to ban list?");
+            System.out.println("Number of new occurrences is: "+count);
+            if (count != 0){
+            System.out.println("Add occurrence(s) to ban list?");}
            while (true){
             check = sc1.nextLine();
             if (check.equalsIgnoreCase(Y)){
@@ -204,6 +225,27 @@ public class findword {
                 System.out.println("Occurrence(s) not added");
                 ga.clear();//this needs to be line or an equivalent
                 break;
+            }
+            else if (count == 0){
+                String you;
+                System.out.println("No new words to add.");
+                System.out.println("Do you want to add " + word + " to blacklist?"
+                + "\nUse Y or N"
+                );
+                you = sc1.nextLine();
+                if (you.equalsIgnoreCase(Y)){
+                    System.out.println("Adding word");
+                    wu.add(word);
+                    break;
+                }
+                else if (you.equalsIgnoreCase(N)){
+                    System.out.println("Skipping word");
+                    ga.clear();
+                    break;
+                }
+                else{
+                    System.out.println("Please use Y or N");
+                }
             }
             else{
                 System.out.println("Please use Y or N");
