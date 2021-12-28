@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
-        //create a way to create directories
+        //create directories and files for you
         Path p = Paths.get("C:/");
         Path p1 = Paths.get("George");
         Path p2 = Paths.get("names");
@@ -273,7 +273,7 @@ public class findword {
 
         while(sc2.hasNextLine()) {
             String line = sc2.nextLine();
-            System.out.println(line);
+//            System.out.println(line); // removing, because it is to cumbersome to keep using that over and over again
             if(line.contains(word)) {
                 flag = true;
 
@@ -369,7 +369,7 @@ public class findword {
         String list;
         for (int i = 0; i < wu.size(); i++){
             list = wu.get(i);
-            System.out.println(list);
+//            System.out.println(list);
         }
 
         //asks if you want to overwrite the save file
@@ -403,7 +403,7 @@ public class findword {
         }
 
         //shows the words then prints them into ban.txt with the correct ban format
-        System.out.println("Words are: ");
+        System.out.println("\nBanned names are: ");
 
         String names;
         for (int i = 0; i < name.size(); i++){
