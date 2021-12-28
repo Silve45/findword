@@ -18,51 +18,52 @@ public class findword {
         Path p7 = Paths.get("load.txt");
 
 
-
-
-        Path g1 = p.resolve(p1);
-        Path g2 = g1.resolve(p2);
-        Path g3 = g2.resolve(p3);
-        Path g4 = g1.resolve(p4);
-        Path g5 = g4.resolve(p5);
+        Path g1 = p.resolve(p1);//C:/George
+        Path g2 = g1.resolve(p2);//George/names
+        Path g3 = g2.resolve(p3);//names/names.txt
+        Path g4 = g1.resolve(p4);//George/ban
+        Path g5 = g4.resolve(p5);//ban/ban.txt
         //save and loaders
-        Path g6 = g1.resolve(p6); // folder
-        Path g7 = g6.resolve(p7);// file
+        Path g6 = g1.resolve(p6);//George/load
+        Path g7 = g6.resolve(p7);//load/load.txt
 
 
         try {
+            //creates george folder if not already created
             if (Files.notExists(g1)){
                 Files.createDirectories(g1);
                 System.out.println("Created George folder");
             }//end if
+            //creates names folder if not already created
             if (Files.notExists(g2)){
                 Files.createDirectories(g2);
                 System.out.println("Created names folder");
             }//end if
+            //creates names file if not already created
             if (Files.notExists(g3)){
                 Files.createFile(g3);
                 System.out.println("Created names.txt. To add names you want to scan through, please write them in this document");
             }//end if
+            //creates ban folder if not already created
             if (Files.notExists(g4)){
                 Files.createDirectories(g4);
                 System.out.println("Created ban folder");
             }//end if
+            //creates ban file if not already created
             if (Files.notExists(g5)){
                 Files.createFile(g5);
                 System.out.println("Created ban.txt");
             }//end if
+            //creates ban folder if not already created
             if (Files.notExists(g6)){
                 Files.createDirectories(g6);
                 System.out.println("Created load folder");
             }//end if
+            //creates ban file if not already created
             if (Files.notExists(g7)){
                 Files.createFile(g7);
                 System.out.println("Created load.txt");
             }//end if
-
-
-
-
         }//end try
          catch (IOException e){
             System.err.println(e);
@@ -77,9 +78,10 @@ public class findword {
         ArrayList<String> wu = new ArrayList<>();
         ArrayList<String> ga = new ArrayList<>();
 
-        //starts the while true stuff
+        //most of the program is written in this
         while (true){
 
+        //choose what you will do
         Scanner sc1 = new Scanner(System.in);
         System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words, -3 to manually add blacklist words, -4 to load previous save)");
         String word = sc1.next();
@@ -90,12 +92,13 @@ public class findword {
 
 
 
-        //adding so that I can exit out of while loop
+        //goes to end of program
         if (word.equalsIgnoreCase("-1")){
             System.out.println("exiting");
             break;
-        }
+        }//end of exit (-1)
 
+        //loads in save
         if (word.equalsIgnoreCase("-4")){
             System.out.println("Are you sure you want to load in file?");
             while (true){
@@ -127,14 +130,12 @@ public class findword {
                 else {
                     System.out.println("Please use Y or N");
                 }
-
-
             }
             continue;
-        }
+        }// end of load (-4)
 
 
-
+        //manual add in words to black list
         if (word.equalsIgnoreCase("-3")){
             System.out.println("Manually add words to black list, -1 to exit, -2 to delete last word");
             System.out.println("Please make sure to use re-go to check occurrences of new words");
@@ -169,8 +170,9 @@ public class findword {
             }
             System.out.println("Please make sure to run these words in re-do");
             continue;
-        }//end -3
+        }//end of manual add in (-3)
 
+        //the rechecks document for new occurances of words
         if (word.equalsIgnoreCase("-2")){
             System.out.println("rechecking document for new occurrences of blacklist words");
             for(int i = 0; i < wu.size(); i++) {
@@ -205,6 +207,7 @@ public class findword {
                     }// end line .contains
                 }//end small while
 
+                //still part of -2, an almost exact copy of the find word
                 if(flag) {
                     System.out.println("File contains the specified word");
                     System.out.println("Number of new occurrences is: "+count);
@@ -258,8 +261,10 @@ public class findword {
                 System.out.println(wu);
             }//end giant for
             continue;
-        }//end -2 if
+        }//end of re-do (-2)
 
+
+  //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
         boolean flag = false;
         int count = 0;
         System.out.println("Contents of the line");
@@ -367,7 +372,7 @@ public class findword {
             System.out.println(list);
         }
 
-
+        //asks if you want to overwrite the save file
         System.out.println("Would you like to save blacklist words? This will overwrite the previous save.");
         while (true) {
             Scanner sc3 = new Scanner(System.in);
@@ -397,6 +402,7 @@ public class findword {
             }
         }
 
+        //shows the words then prints them into ban.txt with the correct ban format
         System.out.println("Words are: ");
 
         String names;
