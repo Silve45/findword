@@ -77,6 +77,21 @@ public class findword {
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> wu = new ArrayList<>();
         ArrayList<String> ga = new ArrayList<>();
+        ArrayList<String> fc = new ArrayList<>();
+        ArrayList<String> bc = new ArrayList<>();
+        //putting it here for testing
+        Scanner sc5 = new Scanner(new FileInputStream("C:/George/ban/ban.txt"));
+
+
+        while(sc5.hasNextLine()) {
+            sc5.skip("/ban");
+            String line = sc5.nextLine();
+            System.out.println(line);
+            bc.add(line);
+
+        }// end small while
+        System.out.println(bc);
+
 
         //most of the program is written in this
         while (true){
@@ -396,12 +411,13 @@ public class findword {
         }
 
         //asks if you want to overwrite the save file
-        System.out.println("Would you like to save blacklist words? This will overwrite the previous save.");
+        System.out.println("Would you like to save blacklist words? This will overwrite the previous save." + "\nUse Y or N");
         while (true) {
             Scanner sc3 = new Scanner(System.in);
             String c1 = sc3.nextLine();
             if (c1.equalsIgnoreCase(Y)) {
                 System.out.println("Saving Blacklist words");
+                //these 3 lines wipe the old blacklist, so it can be fully overwritten
                 PrintWriter w1 = new PrintWriter(String.valueOf(g7));
                 w1.print("");
                 w1.close();
@@ -425,20 +441,43 @@ public class findword {
             }
         }
 
+        for ( int i = 0; i < name.size(); i ++){
+            System.out.println(name.get(i));
+            if (bc.contains(name.get(i))){
+                System.out.println("no");
+//                name.remove(i); // can't use this or it will make the thing too small to iterate over the whole thing
+            }
+            else{
+                System.out.println("yes");
+                fc.add(name.get(i));
+            }
+
+        }
+        System.out.println(name);
+        System.out.println(fc);
+
+
         //shows the words then prints them into ban.txt with the correct ban format
         System.out.println("\nBanned names are: ");
+
 
         String names;
         for (int i = 0; i < name.size(); i++){
              names = name.get(i);
             System.out.println(names);
         }
+        System.out.println("New banned names are: ");
+        for (int i = 0; i < fc.size(); i++){
+            names = fc.get(i);
+            System.out.println(names);
+        }
+
 
         try(FileWriter fw = new FileWriter(String.valueOf(g5),true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw)) {
-            for (int i = 0; i < name.size(); i++){
-                pw.println("/ban" + name.get(i));
+            for (int i = 0; i < fc.size(); i++){
+                pw.println("/ban" + fc.get(i));
             }
 
         }catch (IOException i){
