@@ -353,7 +353,30 @@ public class findword {
             }
            }// end small while
         } else {
+            String you; //Why did I name it, you? No idea...
             System.out.println("File does not contain the specified word");
+            System.out.println("Do you still want to add " + word + " to black list?"
+            + "\nUse Y or N"
+            );
+
+            while (true){
+               Scanner sc3 =  new Scanner(System.in);
+                you = sc3.nextLine();
+            if (you.equalsIgnoreCase(Y)){
+                System.out.println("Adding word");
+                wu.add(word);
+                break;
+            }
+            else if (you.equalsIgnoreCase(N)){
+                System.out.println("Skipping word");
+                break;
+            }
+            else {
+                System.out.println("Please use Y or N");
+                continue;
+            }
+            }
+
             ga.clear();
         }
             // justs prints out elements in arraylist
