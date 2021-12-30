@@ -2,6 +2,7 @@
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class findword {
@@ -98,7 +99,7 @@ public class findword {
 
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words, -3 to manually add blacklist words, -4 to load previous save)");
+        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words, -3 to manually add or delete blacklist words, -4 to load previous save)");
         String word = sc1.next();
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
@@ -152,25 +153,44 @@ public class findword {
 
         //manual add in words to black list
         if (word.equalsIgnoreCase("-3")){
-            System.out.println("Manually add words to black list, -1 to exit, -2 to delete last word");
+            System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
             System.out.println("Please make sure to use re-go to check occurrences of new words");
             while(true){
-                Scanner a1 = new Scanner(System.in);
-                String a2 = a1.nextLine();
                 int last = wu.size() - 1;
+                int i = 0;
+
+                Scanner a1 = new Scanner(System.in);
+                System.out.println("Add new word");
+                String a2 = a1.nextLine();
+
                 if (a2.equals("-1")){
                     break;
-                }
+                }//end -1
                 else if (a2.equals("-2")){
+                   while (i != -1){
                     try {
-                        wu.remove(last);
-                        System.out.println("deleting");
-                        System.out.println("Result " + wu);
-                    }catch (IndexOutOfBoundsException e){
-                        System.out.println("No words to undo");
+                       System.out.println(wu);
+                       System.out.println("Which word would you like to delete? (first number is 0, -1 to leave)");
+                       Scanner ic = new Scanner(System.in);
+                       i = ic.nextInt();
+                       System.out.println("Deleting " + wu.get(i));
+                       wu.remove(i);
+                   }
+                   catch (IndexOutOfBoundsException j){
+                       if ( i == -1){
+                           System.out.println("Exiting delete");
+                       }
+                       else {
+                           System.out.println("No word there");
+                       }
+                   }
+                    catch (InputMismatchException j){
+                        System.out.println("Use integers please");
                     }
 
-                }
+                   }
+
+                }//end -2
                 else {
                     if (wu.contains(a2)){
                         System.out.println("Blacklist contains that word");
@@ -466,7 +486,7 @@ public class findword {
              names = name.get(i);
             System.out.println(names);
         }
-        System.out.println("New banned names are: ");
+        System.out.println("\nNew banned names are: ");
         for (int i = 0; i < fc.size(); i++){
             names = fc.get(i);
             System.out.println(names);
