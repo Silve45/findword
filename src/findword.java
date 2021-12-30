@@ -1,4 +1,4 @@
-//I pulled this from online and then I edited it, the first git is the original
+//I started with a tutorial to find words, and then made this monstrosity...
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -87,11 +87,11 @@ public class findword {
         while(sc5.hasNextLine()) {
             sc5.skip("/ban");
             String line = sc5.nextLine();
-            System.out.println(line);
+
             bc.add(line);
 
         }// end small while
-        System.out.println(bc);
+
 
 
         //most of the program is written in this
@@ -220,7 +220,6 @@ public class findword {
 
                 while(sc2.hasNextLine()) {
                     String line = sc2.nextLine();
-//                    System.out.println(line);
                     if(line.contains(word)) {
                         flag = true;
                         if(!name.contains(line)){
@@ -302,7 +301,7 @@ public class findword {
   //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
         boolean flag = false;
         int count = 0;
-        System.out.println("Contents of the line");
+//        System.out.println("Contents of the line"); // part of the sout(line) thing below
         //Reading the contents of the file
         Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
 
@@ -328,7 +327,6 @@ public class findword {
                 }
                 else {
                     ga.add(line);
-//                    System.out.println("burger");
                 }//end else
             }// end line .contains
         }//end small while
@@ -342,10 +340,8 @@ public class findword {
             check = sc1.nextLine();
             if (check.equalsIgnoreCase(Y)){
                 System.out.println("Adding occurrence(s)");
-                name.addAll(ga);// replaced for loop, because it said I could
+                name.addAll(ga);
 
-
-                //this code is supposed to add a new banned word and ignore old (FIXED!!!)
                 if(wu.contains(word)){
                     ga.clear();
                     break;
@@ -384,7 +380,6 @@ public class findword {
             }
             else{
                 System.out.println("Please use Y or N");
-                //took out continue, because it said I could
             }
            }// end small while
         } else {
@@ -462,20 +457,14 @@ public class findword {
         }
 
         for ( int i = 0; i < name.size(); i ++){
-            System.out.println(name.get(i));
             if (bc.contains(name.get(i))){
-                System.out.println("no");
-//                name.remove(i); // can't use this or it will make the thing too small to iterate over the whole thing
+                //no statement needed.
             }
             else{
-                System.out.println("yes");
                 fc.add(name.get(i));
             }
 
         }
-        System.out.println(name);
-        System.out.println(fc);
-
 
         //shows the words then prints them into ban.txt with the correct ban format
         System.out.println("\nBanned names are: ");
@@ -506,5 +495,3 @@ public class findword {
 
     }// end psvm
 }
-//problem 1 it only calls the first blacklist word
-//problem 2 it re-puts the blacklist word into the thing and does it again
