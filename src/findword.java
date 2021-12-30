@@ -84,13 +84,6 @@ public class findword {
         Scanner sc5 = new Scanner(new FileInputStream("C:/George/ban/ban.txt"));
 
 
-        while(sc5.hasNextLine()) {
-            sc5.skip("/ban");
-            String line = sc5.nextLine();
-
-            bc.add(line);
-
-        }// end small while
 
 
 
@@ -459,6 +452,15 @@ public class findword {
                 continue;
             }
         }
+
+
+        while(sc5.hasNextLine()) {
+            sc5.skip("/ban");
+            String bean = sc5.nextLine();
+            System.out.println(bean);
+            bc.add(bean);
+
+        }// end small while
 
         for ( int i = 0; i < name.size(); i ++){
             if (bc.contains(name.get(i))){
