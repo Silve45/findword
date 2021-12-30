@@ -169,12 +169,16 @@ public class findword {
                 else if (a2.equals("-2")){
                    while (i != -1){
                     try {
-                       System.out.println(wu);
-                       System.out.println("Which word would you like to delete? (first number is 0, -1 to leave)");
+                       for (int j = 0; j < wu.size(); j++)
+                       {
+                           System.out.print("("+j+") "+ wu.get(j) + ", ");
+                       }
+                       System.out.println("\nWhich word would you like to delete? (first number is 0, -1 to leave)");
                        Scanner ic = new Scanner(System.in);
                        i = ic.nextInt();
                        System.out.println("Deleting " + wu.get(i));
                        wu.remove(i);
+
                    }
                    catch (IndexOutOfBoundsException j){
                        if ( i == -1){
