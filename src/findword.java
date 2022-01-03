@@ -14,11 +14,16 @@ public class findword {
         String check;
         String Y = "Y";
         String N = "N";
+        String O = "O";
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> wu = new ArrayList<>();
         ArrayList<String> ga = new ArrayList<>();
         ArrayList<String> fc = new ArrayList<>();
         ArrayList<String> bc = new ArrayList<>();
+
+        //testing arraylist
+        ArrayList<String> te = new ArrayList<>();
+
 
         //This controls the load
         Scanner sc5 = new Scanner(new FileInputStream("C:/George/ban/ban.txt"));
@@ -52,18 +57,9 @@ public class findword {
                 String c1 = sc3.nextLine();
                 if (c1.equalsIgnoreCase(Y)){
                     System.out.println("loading");
-                    Scanner sc4 = new Scanner(new FileInputStream("C:/George/load/load.txt"));
 
+                    c3.PrintInput(String.valueOf(c3.g7),N,wu);
 
-                    while(sc4.hasNextLine()) {
-                        String line = sc4.nextLine();
-                        if (wu.contains(line)){
-                            continue;
-                        }
-                        else {
-                        wu.add(line);
-                        }
-                    }// end small while
                     System.out.println("Load Successful");
                     System.out.println(wu);
                     System.out.println("Please be sure to use re-go to check for occurrences");
@@ -152,6 +148,7 @@ public class findword {
                 int count = 0;
                 Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
 
+                //this is the code from the turtorial, making it very hard for me to delete. I remade all of it in PrintInput, but the flag system
                 while(sc2.hasNextLine()) {
                     String line = sc2.nextLine();
                     if(line.contains(word)) {

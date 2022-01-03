@@ -1,13 +1,12 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Create {
+
     Path p = Paths.get("C:/");
     Path p1 = Paths.get("George");
     Path p2 = Paths.get("names");
@@ -88,9 +87,40 @@ public class Create {
 
     }// end output
 
-    public void input(){
+    //this reads a file and adds all of its contents into an arraylist
+    public void PrintInput(String path, String O,ArrayList<String> Add) throws FileNotFoundException {
+        Scanner sc1 = new Scanner(new FileInputStream(path));
 
+        if (O.equalsIgnoreCase("o")){
+           while (sc1.hasNext()){
+            System.out.println(sc1.nextLine());
+           }// end while
+        }
 
+        else {
+            //nothing to see here
+        }//end check
+
+        try {
+        if (Add.equals(null)){
+
+        }
+        else {
+            while (sc1.hasNext()){
+                String line = (sc1.nextLine());
+
+                if (Add.contains(line)){
+                    // based on old lines in findword
+                }
+                else {
+                    Add.add(line);
+                }
+            }
+        }//end add
+        }//end try
+        catch (NullPointerException e){
+            //if Add is null, nothing will happen
+        }//end catch
 
     }// end input
 
