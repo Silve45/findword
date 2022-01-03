@@ -96,7 +96,6 @@ public class Create {
             System.out.println(sc1.nextLine());
            }// end while
         }
-
         else {
             //nothing to see here
         }//end check
@@ -123,5 +122,44 @@ public class Create {
         }//end catch
 
     }// end input
+
+    public void remove(String path) throws FileNotFoundException {
+        Scanner sc1 = new Scanner(new FileInputStream(path));
+        sc1.skip("/ban");
+        Scanner sc2 = new Scanner(System.in);
+
+        String check;
+
+
+
+        System.out.println("Enter word to remove");
+
+        String input = sc2.nextLine();
+
+        while (sc1.hasNext()){
+            check = sc1.nextLine();
+            sc1.skip("/ban");
+            if (check.equals(input)){
+                System.out.println("removed!");
+//                PrintWriter w1 = new PrintWriter(String.valueOf(g5));
+//                w1.println("");
+//                w1.close();
+                try(FileWriter fw = new FileWriter(path,true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter pw = new PrintWriter(bw)) {
+                        pw.println("");
+                }catch (IOException i){
+//            i.printStackTrace();
+                }
+                break;
+            }
+            else {
+                break;
+            }
+
+        }
+
+
+    }
 
 }// end Create

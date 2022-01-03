@@ -60,9 +60,7 @@ public class findword {
 
                     c3.PrintInput(String.valueOf(c3.g7),N,wu);
 
-                    System.out.println("Load Successful");
-                    System.out.println(wu);
-                    System.out.println("Please be sure to use re-go to check for occurrences");
+                    System.out.println("Load Successful" +"\n" + wu + "\nPlease be sure to use re-go to check for occurrences");
                     break;
                 }
                 else if (c1.equalsIgnoreCase(N)){
@@ -148,7 +146,7 @@ public class findword {
                 int count = 0;
                 Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
 
-                //this is the code from the turtorial, making it very hard for me to delete. I remade all of it in PrintInput, but the flag system
+                //this is the code from the tutorial, making it very hard for me to delete. I remade all of it in PrintInput, but the flag system
                 while(sc2.hasNextLine()) {
                     String line = sc2.nextLine();
                     if(line.contains(word)) {
@@ -238,7 +236,7 @@ public class findword {
 
         while(sc2.hasNextLine()) {
             String line = sc2.nextLine();
-//            System.out.println(line); // removing, because it is to cumbersome to keep using that over and over again
+//            System.out.println(line); // removing, because it is too cumbersome to keep using that over and over again
             if(line.contains(word)) {
                 flag = true;
 
@@ -383,7 +381,7 @@ public class findword {
         while(sc5.hasNextLine()) {
             sc5.skip("/ban");
             String bean = sc5.nextLine();
-            System.out.println(bean);
+//            System.out.println(bean);
             bc.add(bean);
 
         }// end small while
