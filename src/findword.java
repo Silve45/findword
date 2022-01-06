@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+//for next time, add something so that if you remove a word from the blacklist, it will also remove those words from the array with the occurrences
+
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
         //create directories and files for you
@@ -50,11 +52,11 @@ public class findword {
         }//end of exit (-1)
 
           //deletes words from list
-            if (word.equalsIgnoreCase("-5")){
-                System.out.println("Entering delete mode");
-                c3.remove(String.valueOf(c3.g5));
-                continue;
-            }
+        if (word.equalsIgnoreCase("-5")){
+            System.out.println("Entering delete mode");
+            c3.remove(String.valueOf(c3.g5));
+            continue;
+        }
 
         //loads in save
         if (word.equalsIgnoreCase("-4")){
@@ -97,116 +99,10 @@ public class findword {
 
 
   //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
-        boolean flag = false;
-        int count = 0;
-//        System.out.println("Contents of the line"); // part of the sout(line) thing below
-        //Reading the contents of the file
-        Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
-
-        while(sc2.hasNextLine()) {
-            String line = sc2.nextLine();
-//            System.out.println(line); // removing, because it is too cumbersome to keep using that over and over again
-            if(line.contains(word)) {
-                flag = true;
-
-                if(!name.contains(line)){
-                    count = count+1;
-                }
-                else{
-                    continue;
-                }
+            c3.FindWord(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
 
 
-                if(name.isEmpty()){
-                    ga.add(line);
-                }//end if
-                else if (name.contains(line)){
-                    ga.remove(ga);
-                }
-                else {
-                    ga.add(line);
-                }//end else
-            }// end line .contains
-        }//end small while
 
-        if(flag) {
-            System.out.println("File contains the specified word");
-            System.out.println("Number of new occurrences is: "+count);
-            if (count != 0){
-            System.out.println("Add occurrence(s) to ban list?");}
-           while (true){
-            check = sc1.nextLine();
-            if (check.equalsIgnoreCase(Y)){
-                System.out.println("Adding occurrence(s)");
-                name.addAll(ga);
-
-                if(wu.contains(word)){
-                    ga.clear();
-                    break;
-                }
-                else {
-                    wu.add(word);
-                    ga.clear();
-                    break;
-                }
-            }
-            else if (check.equalsIgnoreCase(N)){
-                System.out.println("Occurrence(s) not added");
-                ga.clear();//this needs to be line or an equivalent
-                break;
-            }
-            else if (count == 0){
-                String you;
-                System.out.println("No new words to add.");
-                System.out.println("Do you want to add " + word + " to blacklist?"
-                + "\nUse Y or N"
-                );
-                you = sc1.nextLine();
-                if (you.equalsIgnoreCase(Y)){
-                    System.out.println("Adding word");
-                    wu.add(word);
-                    break;
-                }
-                else if (you.equalsIgnoreCase(N)){
-                    System.out.println("Skipping word");
-                    ga.clear();
-                    break;
-                }
-                else{
-                    System.out.println("Please use Y or N");
-                }
-            }
-            else{
-                System.out.println("Please use Y or N");
-            }
-           }// end small while
-        } else {
-            String you; //Why did I name it, you? No idea...
-            System.out.println("File does not contain the specified word");
-            System.out.println("Do you still want to add " + word + " to black list?"
-            + "\nUse Y or N"
-            );
-
-            while (true){
-               Scanner sc3 =  new Scanner(System.in);
-                you = sc3.nextLine();
-            if (you.equalsIgnoreCase(Y)){
-                System.out.println("Adding word");
-                wu.add(word);
-                break;
-            }
-            else if (you.equalsIgnoreCase(N)){
-                System.out.println("Skipping word");
-                break;
-            }
-            else {
-                System.out.println("Please use Y or N");
-                continue;
-            }
-            }
-
-            ga.clear();
-        }
             // justs prints out elements in arraylist
             System.out.println("Words in ban list");
             System.out.println(name);
