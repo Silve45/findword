@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -209,7 +210,7 @@ public class Create {
         System.out.println("Exiting delete mode");
     }//end remove
 
-    public void wordcheck(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
+    public void rego(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         System.out.println("rechecking document for new occurrences of blacklist words");
         for(int i = 0; i < wu.size(); i++) {
             word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
@@ -297,6 +298,68 @@ public class Create {
             System.out.println(wu);
         }//end giant for
 //        continue;
+
+
+    }//end rego
+
+    public void ManualBlacklist(ArrayList<String> banlist)throws FileNotFoundException{
+        System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
+        System.out.println("Please make sure to use re-go to check occurrences of new words");
+        while(true){
+            int last = banlist.size() - 1;
+            int i = 0;
+
+            Scanner a1 = new Scanner(System.in);
+            System.out.println("Add new word");
+            String a2 = a1.nextLine();
+
+            if (a2.equals("-1")){
+                break;
+            }//end -1
+            else if (a2.equals("-2")){
+                while (i != -1){
+                    try {
+                        for (int j = 0; j < banlist.size(); j++)
+                        {
+                            System.out.print("("+j+") "+ banlist.get(j) + ", ");
+                        }
+                        System.out.println("\nWhich word would you like to delete? (first number is 0, -1 to leave)");
+                        Scanner ic = new Scanner(System.in);
+                        i = ic.nextInt();
+                        System.out.println("Deleting " + banlist.get(i));
+                        banlist.remove(i);
+
+                    }
+                    catch (IndexOutOfBoundsException j){
+                        if ( i == -1){
+                            System.out.println("Exiting delete");
+                        }
+                        else {
+                            System.out.println("No word there");
+                        }
+                    }
+                    catch (InputMismatchException j){
+                        System.out.println("Use integers please");
+                    }
+
+                }
+
+            }//end -2
+            else {
+                if (banlist.contains(a2)){
+                    System.out.println("Blacklist contains that word");
+                }
+                else {
+                    banlist.add(a2);
+                    System.out.println("Added words are: ");
+                    System.out.println(banlist);}
+
+            }
+
+        }
+
+
+
 
 
     }

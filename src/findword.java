@@ -84,67 +84,14 @@ public class findword {
 
         //manual add in words to black list
         if (word.equalsIgnoreCase("-3")){
-            System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
-            System.out.println("Please make sure to use re-go to check occurrences of new words");
-            while(true){
-                int last = wu.size() - 1;
-                int i = 0;
-
-                Scanner a1 = new Scanner(System.in);
-                System.out.println("Add new word");
-                String a2 = a1.nextLine();
-
-                if (a2.equals("-1")){
-                    break;
-                }//end -1
-                else if (a2.equals("-2")){
-                   while (i != -1){
-                    try {
-                       for (int j = 0; j < wu.size(); j++)
-                       {
-                           System.out.print("("+j+") "+ wu.get(j) + ", ");
-                       }
-                       System.out.println("\nWhich word would you like to delete? (first number is 0, -1 to leave)");
-                       Scanner ic = new Scanner(System.in);
-                       i = ic.nextInt();
-                       System.out.println("Deleting " + wu.get(i));
-                       wu.remove(i);
-
-                   }
-                   catch (IndexOutOfBoundsException j){
-                       if ( i == -1){
-                           System.out.println("Exiting delete");
-                       }
-                       else {
-                           System.out.println("No word there");
-                       }
-                   }
-                    catch (InputMismatchException j){
-                        System.out.println("Use integers please");
-                    }
-
-                   }
-
-                }//end -2
-                else {
-                    if (wu.contains(a2)){
-                        System.out.println("Blacklist contains that word");
-                    }
-                    else {
-                    wu.add(a2);
-                    System.out.println("Added words are: ");
-                    System.out.println(wu);}
-
-                }
-
-            }
+            c3.ManualBlacklist(wu);
             System.out.println("Please make sure to run these words in re-do");
             continue;
         }//end of manual add in (-3)
 
         //the rechecks document for new occurances of words
         if (word.equalsIgnoreCase("-2")){
-            c3.wordcheck(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
+            c3.rego(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
             continue;
         }//end of re-do (-2)
 
