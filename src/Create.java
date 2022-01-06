@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Create {
 
+
     Path p = Paths.get("C:/");
     Path p1 = Paths.get("George");
     Path p2 = Paths.get("names");
@@ -87,7 +88,7 @@ public class Create {
 
     }// end output
 
-    //this reads a file and adds all of its contents into an arraylist
+    //this reads a file and adds all of its contents into an arraylist, so in essence a loader
     public void PrintInput(String path, String O,ArrayList<String> Add) throws FileNotFoundException {
         Scanner sc1 = new Scanner(new FileInputStream(path));
 
@@ -123,43 +124,85 @@ public class Create {
 
     }// end input
 
-    public void remove(String path) throws FileNotFoundException {
-        Scanner sc1 = new Scanner(new FileInputStream(path));
-        sc1.skip("/ban");
-        Scanner sc2 = new Scanner(System.in);
-
-        String check;
-
-
-
-        System.out.println("Enter word to remove");
-
-        String input = sc2.nextLine();
-
-        while (sc1.hasNext()){
-            check = sc1.nextLine();
-            sc1.skip("/ban");
-            if (check.equals(input)){
-                System.out.println("removed!");
-//                PrintWriter w1 = new PrintWriter(String.valueOf(g5));
-//                w1.println("");
-//                w1.close();
-                try(FileWriter fw = new FileWriter(path,true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    PrintWriter pw = new PrintWriter(bw)) {
-                        pw.println("");
-                }catch (IOException i){
-//            i.printStackTrace();
-                }
-                break;
-            }
-            else {
-                break;
-            }
-
-        }
-
-
+    public void ClearDocument (String path) throws FileNotFoundException {
+        //these 3 lines wipe the old blacklist, so it can be fully overwritten
+        PrintWriter w1 = new PrintWriter(String.valueOf(path));
+        w1.print("");
+        w1.close();
     }
+    public void remove(String path) throws FileNotFoundException {
+        while (true) {// begin big while
+            ArrayList<String> gather = new ArrayList<>();
+            ArrayList<String> bean = new ArrayList<>();
+            Scanner sc1 = new Scanner(System.in);
+            PrintInput(path, "n", bean);
+            System.out.println(bean);
+            boolean flag = false;
+            int count = 0;
+//        System.out.println("Contents of the line"); // part of the sout(line) thing below
+            //Reading the contents of the file
+            System.out.println("Print a word to be deleted (-1 to exit, press enter to include all the words)");
+            String word = sc1.nextLine();
+            Scanner sc2 = new Scanner(new FileInputStream(path));
+
+            //exits if word equals -1
+            if (word.equals("-1")){
+                break;
+            }
+
+            // if it doesn't equal -1 we can keep going
+            String line = "lll";
+            while (sc2.hasNextLine()) {
+                line = sc2.nextLine();
+//            System.out.println(line); // removing, because it is too cumbersome to keep using that over and over again
+                if (line.contains(word)) {
+                    flag = true;
+
+                    if (bean.contains(line)) {
+                        count = count + 1;
+                    } else {
+                        continue;
+                    }
+                }// end line .contains
+            }//end small while
+
+            if (flag) {
+                System.out.println("File contains the specified word");
+                System.out.println("Number of new occurrences is: " + count);
+                System.out.println("Do you want to remove all occurrences from ban list?");
+
+
+                while (true) {
+                    String check = sc1.next();
+                    if (check.equalsIgnoreCase("y")) {
+                        System.out.println("Removing");
+                        for (int i = 0; i < bean.size(); i++) {
+                            if (bean.get(i).contains(word)) {// it will be if bean contains line then write it in get array list, and then I will rewrite file using an arrayoutputmethod
+                            }//end if
+                            else {
+                                gather.add(bean.get(i));
+                            }// end else
+                        }
+
+                        //clears the document and then outputs the new list
+                        ClearDocument(path);
+                        ArrayOutput(path, gather, "", "");
+                        break;
+                    } else if (check.equalsIgnoreCase("n")) {
+                        System.out.println("Okay not removing occurrences");
+                        break;
+                    } else {
+                        System.out.println("please use Y or N");
+                    }
+
+                }
+
+            } else if (!flag) {
+                System.out.println("File does not contain word");
+            }
+
+        }// end big while
+        System.out.println("Goodbye!");
+    }//end remove
 
 }// end Create
