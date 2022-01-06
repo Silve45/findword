@@ -11,7 +11,7 @@ public class findword {
         Create c3 = new Create();
         c3.createfolder();
         //Reading the word to be found from the user
-        String check;
+        String check = null;
         String Y = "Y";
         String N = "N";
         String O = "O";
@@ -34,7 +34,7 @@ public class findword {
 
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nEnter the word to be found (-1 to exit, -2 to re-go over blacklist words, -3 to manually add or delete blacklist words, -4 to load previous save)");
+        System.out.println("\nJust enter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list");
         String word = sc1.next();
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
@@ -48,6 +48,13 @@ public class findword {
             System.out.println("exiting");
             break;
         }//end of exit (-1)
+
+          //deletes words from list
+            if (word.equalsIgnoreCase("-5")){
+                System.out.println("Entering delete mode");
+                c3.remove(String.valueOf(c3.g5));
+                continue;
+            }
 
         //loads in save
         if (word.equalsIgnoreCase("-4")){
@@ -137,92 +144,7 @@ public class findword {
 
         //the rechecks document for new occurances of words
         if (word.equalsIgnoreCase("-2")){
-            System.out.println("rechecking document for new occurrences of blacklist words");
-            for(int i = 0; i < wu.size(); i++) {
-                word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
-                System.out.println("\nWord being checked is " + word);
-
-                boolean flag = false;
-                int count = 0;
-                Scanner sc2 = new Scanner(new FileInputStream("C:/George/names/names.txt"));
-
-                //this is the code from the tutorial, making it very hard for me to delete. I remade all of it in PrintInput, but the flag system
-                while(sc2.hasNextLine()) {
-                    String line = sc2.nextLine();
-                    if(line.contains(word)) {
-                        flag = true;
-                        if(!name.contains(line)){
-                            count = count+1;
-                        }
-                        else{
-                            continue;
-                        }
-
-                        if(name.isEmpty()){
-                            ga.add(line);
-                        }//end if
-                        else if (name.contains(line)){
-                            ga.remove(ga);
-                        }
-                        else {
-                            ga.add(line);
-                        }//end else
-                    }// end line .contains
-                }//end small while
-
-                //still part of -2, an almost exact copy of the find word
-                if(flag) {
-                    System.out.println("File contains the specified word");
-                    System.out.println("Number of new occurrences is: "+count);
-                    if (count != 0){
-                        System.out.println("Add occurrence(s) to ban list?");}
-                    while (true){
-                       if (count != 0){
-                        check = sc1.nextLine();}
-                       else {
-                           check = "A";
-                       }
-
-                        if (check.equalsIgnoreCase(Y)){
-                            System.out.println("Adding occurrence(s)");
-                            name.addAll(ga);// replaced for loop, because it said I could
-
-                            //this code is supposed to add a new banned word and ignore old (FIXED!!!)
-                            if(wu.contains(word)){
-                                ga.clear();
-                                break;
-                            }
-                            else {
-                                wu.add(word);
-                                ga.clear();
-                                break;
-                            }
-                        }
-                        else if (check.equalsIgnoreCase(N)){
-                            System.out.println("Occurrence(s) not added");
-                            ga.clear();//this needs to be line or an equivalent
-                            break;
-                        }
-                        else if (count == 0){
-                            System.out.println("No new words to add.");
-                            break;
-                        }
-                        else{
-                            System.out.println("Please use Y or N");
-                            //took out continue, because it said I could
-                        }
-                    }// end small while
-                } else {
-                    System.out.println("File does not contain the specified word");
-                    ga.clear();
-                }
-                // justs prints out elements in arraylist
-                System.out.println("Words in ban list");
-                System.out.println(name);
-                //prints out elements in blacklist
-                System.out.println("Blacklisted words");
-                System.out.println(wu);
-            }//end giant for
+            c3.wordcheck(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
             continue;
         }//end of re-do (-2)
 
@@ -362,9 +284,7 @@ public class findword {
             if (c1.equalsIgnoreCase(Y)) {
                 System.out.println("Saving Blacklist words");
                 //these 3 lines wipe the old blacklist, so it can be fully overwritten
-                PrintWriter w1 = new PrintWriter(String.valueOf(c3.g7));
-                w1.print("");
-                w1.close();
+              c3.ClearDocument(String.valueOf(c3.g7));
 
                 c3.ArrayOutput(String.valueOf(c3.g7),wu,"","");
                 break;
@@ -378,6 +298,7 @@ public class findword {
         }
 
 
+        //this while and for loop gather info to make sure that the names have no duplicates
         while(sc5.hasNextLine()) {
             sc5.skip("/ban");
             String bean = sc5.nextLine();
@@ -415,4 +336,4 @@ public class findword {
         c3.ArrayOutput(String.valueOf(c3.g5), fc, "/ban","");
 
     }// end psvm
-}
+}// end findword

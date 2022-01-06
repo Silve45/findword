@@ -3,11 +3,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Create {
 
 
+    String Y = "y";
+    String N = "N";
+    //all the quick file paths
     Path p = Paths.get("C:/");
     Path p1 = Paths.get("George");
     Path p2 = Paths.get("names");
@@ -202,7 +206,99 @@ public class Create {
             }
 
         }// end big while
-        System.out.println("Goodbye!");
+        System.out.println("Exiting delete mode");
     }//end remove
+
+    public void wordcheck(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
+        System.out.println("rechecking document for new occurrences of blacklist words");
+        for(int i = 0; i < wu.size(); i++) {
+            word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
+            System.out.println("\nWord being checked is " + word);
+
+            boolean flag = false;
+            int count = 0;
+            Scanner sc2 = new Scanner(new FileInputStream(path));
+
+            //this is the code from the tutorial, making it very hard for me to delete. I remade all of it in PrintInput, but the flag system
+            while(sc2.hasNextLine()) {
+                String line = sc2.nextLine();
+                if(line.contains(word)) {
+                    flag = true;
+                    if(!name.contains(line)){
+                        count = count+1;
+                    }
+                    else{
+                        continue;
+                    }
+
+                    if(name.isEmpty()){
+                        ga.add(line);
+                    }//end if
+                    else if (name.contains(line)){
+                        ga.remove(ga);
+                    }
+                    else {
+                        ga.add(line);
+                    }//end else
+                }// end line .contains
+            }//end small while
+
+            //still part of -2, an almost exact copy of the find word
+            if(flag) {
+                System.out.println("File contains the specified word");
+                System.out.println("Number of new occurrences is: "+count);
+                if (count != 0){
+                    System.out.println("Add occurrence(s) to ban list?");}
+                while (true){
+                    if (count != 0){
+                        check = sc1.nextLine();}
+                    else {
+                        check = "A";
+                    }
+
+                    if (check.equalsIgnoreCase(Y)){
+                        System.out.println("Adding occurrence(s)");
+                        name.addAll(ga);// replaced for loop, because it said I could
+
+                        //this code is supposed to add a new banned word and ignore old (FIXED!!!)
+                        if(wu.contains(word)){
+                            ga.clear();
+                            break;
+                        }
+                        else {
+                            wu.add(word);
+                            ga.clear();
+                            break;
+                        }
+                    }
+                    else if (check.equalsIgnoreCase(N)){
+                        System.out.println("Occurrence(s) not added");
+                        ga.clear();//this needs to be line or an equivalent
+                        break;
+                    }
+                    else if (count == 0){
+                        System.out.println("No new words to add.");
+                        break;
+                    }
+                    else{
+                        System.out.println("Please use Y or N");
+                        //took out continue, because it said I could
+                    }
+                }// end small while
+            } else {
+                System.out.println("File does not contain the specified word");
+                ga.clear();
+            }
+            // justs prints out elements in arraylist
+            System.out.println("Words in ban list");
+            System.out.println(name);
+            //prints out elements in blacklist
+            System.out.println("Blacklisted words");
+            System.out.println(wu);
+        }//end giant for
+//        continue;
+
+
+    }
 
 }// end Create
