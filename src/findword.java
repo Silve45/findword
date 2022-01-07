@@ -28,7 +28,7 @@ public class findword {
 
 
         //This controls the load
-        Scanner sc5 = new Scanner(new FileInputStream("C:/George/ban/ban.txt"));
+        Scanner sc5 = new Scanner(new FileInputStream(String.valueOf(c3.g5))); // ban.txt
 
 
         //most of the program is written in this
@@ -37,7 +37,9 @@ public class findword {
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
         System.out.println("\nJust enter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list");
-        String word = sc1.next();
+
+        String word = sc1.nextLine();
+
         if (wu.contains(word)){
             System.out.println("Word already on blacklist");
             continue;
@@ -46,20 +48,20 @@ public class findword {
 
 
         //goes to end of program
-        if (word.equalsIgnoreCase("-1")){
+      else if (word.equalsIgnoreCase("-1")){
             System.out.println("exiting");
             break;
         }//end of exit (-1)
 
           //deletes words from list
-        if (word.equalsIgnoreCase("-5")){
+      else  if (word.equalsIgnoreCase("-5")){
             System.out.println("Entering delete mode");
             c3.remove(String.valueOf(c3.g5));
             continue;
         }
 
         //loads in save
-        if (word.equalsIgnoreCase("-4")){
+       else if (word.equalsIgnoreCase("-4")){
             System.out.println("Are you sure you want to load in file?");
             while (true){
                 Scanner sc3 = new Scanner(System.in);
@@ -85,21 +87,24 @@ public class findword {
 
 
         //manual add in words to black list
-        if (word.equalsIgnoreCase("-3")){
+       else if (word.equalsIgnoreCase("-3")){
             c3.ManualBlacklist(wu);
             System.out.println("Please make sure to run these words in re-do");
             continue;
         }//end of manual add in (-3)
 
         //the rechecks document for new occurances of words
-        if (word.equalsIgnoreCase("-2")){
+       else if (word.equalsIgnoreCase("-2")){
             c3.rego(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
             continue;
         }//end of re-do (-2)
 
 
   //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
+        else {
+            word = word;
             c3.FindWord(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
+        }
 
 
 

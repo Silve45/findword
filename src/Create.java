@@ -135,6 +135,7 @@ public class Create {
         w1.print("");
         w1.close();
     }
+
     public void remove(String path) throws FileNotFoundException {
         while (true) {// begin big while
             ArrayList<String> gather = new ArrayList<>();
@@ -358,6 +359,18 @@ public class Create {
 
     public void FindWord(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
+
+
+        if (word == null){
+            System.out.println("Print a word");
+            word = sc1.nextLine();
+        }
+        else {
+        word = word;
+        }
+
+
+
         boolean flag = false;
         int count = 0;
 //        System.out.println("Contents of the line"); // part of the sout(line) thing below
@@ -393,9 +406,28 @@ public class Create {
         if(flag) {
             System.out.println("File contains the specified word");
             System.out.println("Number of new occurrences is: "+count);
-            if (count != 0){
-                System.out.println("Add occurrence(s) to ban list?");}
             while (true){
+                if (count != 0){
+                    System.out.println("Add occurrence(s) to ban list?");
+                    break;
+                }
+
+                else if (count == 0) {
+                    String you;
+                    System.out.println("No new words to add.");
+                    System.out.println("file does not contain new instance of " + word
+                    );
+                    break;
+                }
+
+            }// end while true
+
+            while (true){
+                if (count == 0){ // this makes sure that if there is no new words that it doesn't go through this loop
+                    break;
+                }
+
+
                 check = sc1.nextLine();
                 if (check.equalsIgnoreCase(Y)){
                     System.out.println("Adding occurrence(s)");
@@ -468,9 +500,6 @@ public class Create {
 
             ga.clear();
         }
-
-
-
 
     }
 
