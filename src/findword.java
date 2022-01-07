@@ -65,16 +65,33 @@ public class findword {
             System.out.println("Are you sure you want to load in file?");
             while (true){
                 Scanner sc3 = new Scanner(System.in);
-                String c1 = sc3.nextLine();
-                if (c1.equalsIgnoreCase(Y)){
+                String check2 = sc3.nextLine();
+                if (check2.equalsIgnoreCase(Y)){
                     System.out.println("loading");
 
                     c3.PrintInput(String.valueOf(c3.g7),N,wu);
+                    System.out.println("load successful \nWould you like to use rego now?");
 
-                    System.out.println("Load Successful" +"\n" + wu + "\nPlease be sure to use re-go to check for occurrences");
+                    while (true){
+                    check2 = sc3.nextLine();
+                    if (check2.equalsIgnoreCase(Y)){
+                        c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,wu,name,ga);
+                        break;
+                    }
+                    else if(check2.equalsIgnoreCase(N)){
+                        System.out.println("Alright, use the Rego at your own discretion then");
+                        break;
+                    }
+                    else {
+                        System.out.println("Please use Y or N");
+                        continue;
+                    }
+                    }//end while true
+
+//                    System.out.println("Load Successful" +"\n" + wu + "\nPlease be sure to use re-go to check for occurrences");
                     break;
                 }
-                else if (c1.equalsIgnoreCase(N)){
+                else if (check2.equalsIgnoreCase(N)){
                     System.out.println("Alright not loading words");
                     break;
                 }
@@ -89,13 +106,31 @@ public class findword {
         //manual add in words to black list
        else if (word.equalsIgnoreCase("-3")){
             c3.ManualBlacklist(wu);
-            System.out.println("Please make sure to run these words in re-do");
+
+            Scanner sc3 = new Scanner(System.in);
+            String check2;
+            System.out.println("Would like like to use rego now?");
+            while (true){
+                check2 = sc3.nextLine();
+                if (check2.equalsIgnoreCase(Y)){
+                    c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,wu,name,ga);
+                    break;
+                }
+                else if(check2.equalsIgnoreCase(N)){
+                    System.out.println("Alright, use the Rego at your own discretion then");
+                    break;
+                }
+                else {
+                    System.out.println("Please use Y or N");
+                    continue;
+                }
+            }//end while true
             continue;
         }//end of manual add in (-3)
 
         //the rechecks document for new occurances of words
        else if (word.equalsIgnoreCase("-2")){
-            c3.rego(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
+            c3.rego(String.valueOf(c3.g3),"o",sc1,word,check,wu,name,ga);
             continue;
         }//end of re-do (-2)
 

@@ -211,11 +211,80 @@ public class Create {
         System.out.println("Exiting delete mode");
     }//end remove
 
-    public void rego(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
+    //overloaded remove, this one just deletes specified word!
+    public void remove(String path, String word) throws FileNotFoundException {
+        while (true) {// begin big while
+            ArrayList<String> gather = new ArrayList<>();
+             ArrayList<String >bean = new ArrayList<>();
+            Scanner sc1 = new Scanner(System.in);
+            PrintInput(path, "n", bean);
+
+            boolean flag = false;
+            int count = 0;
+
+             word = word;
+
+             Scanner sc2 = new Scanner(new FileInputStream(path));
+
+            //exits if word equals -1
+            if (word.equals("-1")){
+                break;
+            }
+
+            // if it doesn't equal -1 we can keep going
+            String line = "lll";
+            while (sc2.hasNextLine()) {
+                line = sc2.nextLine();
+                if (line.contains(word)) {
+                    flag = true;
+
+                    if (bean.contains(line)) {
+                        count = count + 1;
+                    } else {
+                        continue;
+                    }
+                }// end line .contains
+            }//end small while
+
+            if (flag) {
+                System.out.println("Removing Words");
+                for (int i = 0; i < bean.size(); i++) {
+                    if (bean.get(i).contains(word)) {// it will be if bean contains line then write it in get array list, and then I will rewrite file using an arrayoutputmethod
+                    }//end if
+                    else {
+                        gather.add(bean.get(i));
+                    }// end else
+                }
+
+                //clears the document and then outputs the new list
+                ClearDocument(path);
+                ArrayOutput(path, gather, "", "");
+            break;
+            }
+
+        }//end big while
+
+        System.out.println("Exiting delete mode");
+    }//end overloaded remove
+
+
+    public void rego(String path, String on, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         System.out.println("rechecking document for new occurrences of blacklist words");
+
+
+
         for(int i = 0; i < wu.size(); i++) {
             word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
             System.out.println("\nWord being checked is " + word);
+
+            boolean choice;
+
+            if (on.equalsIgnoreCase("o")){
+                 choice = true;
+            }
+            else {
+                 choice = false;
+            }
 
             boolean flag = false;
             int count = 0;
@@ -249,44 +318,58 @@ public class Create {
             if(flag) {
                 System.out.println("File contains the specified word");
                 System.out.println("Number of new occurrences is: "+count);
-                if (count != 0){
-                    System.out.println("Add occurrence(s) to ban list?");}
-                while (true){
-                    if (count != 0){
-                        check = sc1.nextLine();}
-                    else {
-                        check = "A";
-                    }
 
-                    if (check.equalsIgnoreCase(Y)){
-                        System.out.println("Adding occurrence(s)");
-                        name.addAll(ga);// replaced for loop, because it said I could
+                if (choice == true) {
+                    if (count != 0) {
+                        System.out.println("Add occurrence(s) to ban list?");
+                    }
+                    while (true) {
+                        if (count != 0) {
+                            check = sc1.nextLine();
+                        } else {
+                            check = "A";
+                        }
 
-                        //this code is supposed to add a new banned word and ignore old (FIXED!!!)
-                        if(wu.contains(word)){
-                            ga.clear();
+                        if (check.equalsIgnoreCase(Y)) {
+                            System.out.println("Adding occurrence(s)");
+                            name.addAll(ga);// replaced for loop, because it said I could
+
+                            //this code is supposed to add a new banned word and ignore old (FIXED!!!)
+                            if (wu.contains(word)) {
+                                ga.clear();
+                                break;
+                            } else {
+                                wu.add(word);
+                                ga.clear();
+                                break;
+                            }
+                        } else if (check.equalsIgnoreCase(N)) {
+                            System.out.println("Occurrence(s) not added");
+                            ga.clear();//this needs to be line or an equivalent
                             break;
-                        }
-                        else {
-                            wu.add(word);
-                            ga.clear();
+                        } else if (count == 0) {
+                            System.out.println("No new words to add.");
                             break;
+                        } else {
+                            System.out.println("Please use Y or N");
+                            //took out continue, because it said I could
                         }
+                    }// end small while
+                }// end choice
+                else { // choice is not true
+                    System.out.println("Adding occurrence(s)");
+                    name.addAll(ga);// replaced for loop, because it said I could
+
+                    //this code is supposed to add a new banned word and ignore old (FIXED!!!)
+                    if (wu.contains(word)) {
+                        ga.clear();
+//                        break;
+                    } else {
+                        wu.add(word);
+                        ga.clear();
+//                        break;
                     }
-                    else if (check.equalsIgnoreCase(N)){
-                        System.out.println("Occurrence(s) not added");
-                        ga.clear();//this needs to be line or an equivalent
-                        break;
-                    }
-                    else if (count == 0){
-                        System.out.println("No new words to add.");
-                        break;
-                    }
-                    else{
-                        System.out.println("Please use Y or N");
-                        //took out continue, because it said I could
-                    }
-                }// end small while
+                }//end choice = false
             } else {
                 System.out.println("File does not contain the specified word");
                 ga.clear();
@@ -325,6 +408,25 @@ public class Create {
                         Scanner ic = new Scanner(System.in);
                         i = ic.nextInt();
                         System.out.println("Deleting " + banlist.get(i));
+
+//                        remove(String.valueOf(g5), banlist.get(i));
+
+                        while (true){
+                        System.out.println("Would you like to delete occurances in ban list also? Y or N?");
+                        a2 = a1.nextLine();
+                        if (a2.equalsIgnoreCase(Y)){
+                            remove(String.valueOf(g5), banlist.get(i));
+                            break;
+                        }
+                        else if (a2.equalsIgnoreCase(N)){
+                            System.out.println("Not removing occurances");
+                            break;
+                        }
+                        else {
+                            System.out.println("Please use Y or N");
+                            continue;
+                        }
+                        }// end while
                         banlist.remove(i);
 
                     }
