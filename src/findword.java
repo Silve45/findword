@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//for next time, add something so that if you remove a word from the blacklist, it will also remove those words from the array with the occurrences
+
 
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
@@ -36,7 +36,7 @@ public class findword {
 
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nJust enter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list");
+        System.out.println("\nEnter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list");
 
         String word = sc1.nextLine();
 
@@ -140,8 +140,6 @@ public class findword {
             word = word;
             c3.FindWord(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
         }
-
-
 
             // justs prints out elements in arraylist
             System.out.println("Words in ban list");

@@ -208,7 +208,7 @@ public class Create {
             }
 
         }// end big while
-        System.out.println("Exiting delete mode");
+        System.out.println("Exiting Remove method");
     }//end remove
 
     //overloaded remove, this one just deletes specified word!
@@ -256,15 +256,20 @@ public class Create {
                     }// end else
                 }
 
+
                 //clears the document and then outputs the new list
                 ClearDocument(path);
                 ArrayOutput(path, gather, "", "");
             break;
             }
+            else {
+                System.out.println("nothing to remove");
+                break;
+            }
 
         }//end big while
 
-        System.out.println("Exiting delete mode");
+        System.out.println("Exiting Remove method");
     }//end overloaded remove
 
 
@@ -383,15 +388,14 @@ public class Create {
         }//end giant for
     }//end rego
 
-    public void ManualBlacklist(ArrayList<String> banlist)throws FileNotFoundException{
-        System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
-        System.out.println("Please make sure to use re-go to check occurrences of new words");
+    public void ManualBlacklist(ArrayList<String> banlist) throws FileNotFoundException{
+
         while(true){
             int last = banlist.size() - 1;
             int i = 0;
 
             Scanner a1 = new Scanner(System.in);
-            System.out.println("Add new word");
+            System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
             String a2 = a1.nextLine();
 
             if (a2.equals("-1")){
@@ -433,6 +437,7 @@ public class Create {
                     catch (IndexOutOfBoundsException j){
                         if ( i == -1){
                             System.out.println("Exiting delete");
+                            break;
                         }
                         else {
                             System.out.println("No word there");
@@ -441,6 +446,9 @@ public class Create {
                     catch (InputMismatchException j){
                         System.out.println("Use integers please");
                     }
+//                    catch (IOException e) {
+//                        System.err.println(e);
+//                    }
 
                 }
 
