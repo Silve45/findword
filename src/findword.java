@@ -17,11 +17,11 @@ public class findword {
         String Y = "Y";
         String N = "N";
         String O = "O";
-        ArrayList<String> name = new ArrayList<>();
-        ArrayList<String> wu = new ArrayList<>();
-        ArrayList<String> ga = new ArrayList<>();
-        ArrayList<String> fc = new ArrayList<>();
-        ArrayList<String> bc = new ArrayList<>();
+        ArrayList<String> name = new ArrayList<>(); // this collects names and then at the end puts them in banlist
+        ArrayList<String> wu = new ArrayList<>(); // aka banlist
+        ArrayList<String> ga = new ArrayList<>(); // aka collector
+        ArrayList<String> fc = new ArrayList<>(); // checks names to see if they are already in banlist
+        ArrayList<String> bc = new ArrayList<>(); // checks banned words to see if they match already banned words
 
         //testing arraylist
         ArrayList<String> te = new ArrayList<>();
@@ -105,7 +105,7 @@ public class findword {
 
         //manual add in words to black list
        else if (word.equalsIgnoreCase("-3")){
-            c3.ManualBlacklist(wu);
+            c3.ManualBlacklist(wu, name,ga);
 
             Scanner sc3 = new Scanner(System.in);
             String check2;

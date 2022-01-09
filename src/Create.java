@@ -388,7 +388,7 @@ public class Create {
         }//end giant for
     }//end rego
 
-    public void ManualBlacklist(ArrayList<String> banlist) throws FileNotFoundException{
+    public void ManualBlacklist(ArrayList<String> banlist, ArrayList<String> namelist, ArrayList collect) throws FileNotFoundException{
 
         while(true){
             int last = banlist.size() - 1;
@@ -413,7 +413,22 @@ public class Create {
                         i = ic.nextInt();
                         System.out.println("Deleting " + banlist.get(i));
 
-//                        remove(String.valueOf(g5), banlist.get(i));
+                        int keep = namelist.size();
+                        for (int j = 0; j < namelist.size(); j++){
+                            if (!namelist.get(j).contains(banlist.get(i))){
+                                collect.add(namelist.get(j));
+                            }
+                        }
+                        namelist.clear();
+
+                        for (int j = 0; j < collect.size(); j++){
+                            namelist.add(String.valueOf(collect.get(j)));
+                        }
+                        collect.clear();
+
+                        System.out.println(namelist);
+
+
 
                         while (true){
                         System.out.println("Would you like to delete occurances in ban list also? Y or N?");
