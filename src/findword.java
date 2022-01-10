@@ -6,7 +6,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
         //create directories and files for you
@@ -36,7 +35,7 @@ public class findword {
 
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nEnter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list");
+        System.out.println("\nEnter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list\n-6 to display the contents of the banlist and blacklist");
 
         String word = sc1.nextLine();
 
@@ -46,12 +45,16 @@ public class findword {
         }
 
 
-
         //goes to end of program
       else if (word.equalsIgnoreCase("-1")){
             System.out.println("exiting");
             break;
         }//end of exit (-1)
+
+        //displays contents of Banlist and black list ( at any time )
+        else if (word.equalsIgnoreCase("-6")){
+            c3.displayblacklist(name,wu);
+        }// end of displaylist -6
 
           //deletes words from list
       else  if (word.equalsIgnoreCase("-5")){
@@ -140,14 +143,9 @@ public class findword {
             word = word;
             c3.FindWord(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
         }
-
-            // justs prints out elements in arraylist
-            System.out.println("Words in ban list");
-            System.out.println(name);
-            //prints out elements in blacklist
-            System.out.println("Blacklisted words");
-            System.out.println(wu);
-//            ga.clear();
+            if (!word.equalsIgnoreCase("-6")){
+                 c3.displayblacklist(name,wu);
+            }
         }//end giant while
 
         System.out.println("Blacklist words are " + wu);

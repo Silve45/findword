@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Create {
 
-
     String Y = "y";
     String N = "N";
     //all the quick file paths
@@ -94,10 +93,10 @@ public class Create {
     }// end output
 
     //this reads a file and adds all of its contents into an arraylist, so in essence a loader
-    public void PrintInput(String path, String O,ArrayList<String> Add) throws FileNotFoundException {
+    public void PrintInput(String path, String displayInput,ArrayList<String> Add) throws FileNotFoundException {
         Scanner sc1 = new Scanner(new FileInputStream(path));
 
-        if (O.equalsIgnoreCase("o")){
+        if (displayInput.equalsIgnoreCase("o")){
            while (sc1.hasNext()){
             System.out.println(sc1.nextLine());
            }// end while
@@ -142,7 +141,7 @@ public class Create {
             ArrayList<String> bean = new ArrayList<>();
             Scanner sc1 = new Scanner(System.in);
             PrintInput(path, "n", bean);
-            System.out.println(bean);
+//            System.out.println(bean);
             boolean flag = false;
             int count = 0;
 //        System.out.println("Contents of the line"); // part of the sout(line) thing below
@@ -269,9 +268,8 @@ public class Create {
 
         }//end big while
 
-        System.out.println("Exiting Remove method");
+//        System.out.println("Exiting Remove method");
     }//end overloaded remove
-
 
     public void rego(String path, String on, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         System.out.println("rechecking document for new occurrences of blacklist words");
@@ -321,8 +319,9 @@ public class Create {
 
             //still part of -2, an almost exact copy of the find word
             if(flag) {
+                if (choice == true){
                 System.out.println("File contains the specified word");
-                System.out.println("Number of new occurrences is: "+count);
+                System.out.println("Number of new occurrences is: "+count);}
 
                 if (choice == true) {
                     if (count != 0) {
@@ -380,15 +379,16 @@ public class Create {
                 ga.clear();
             }
             // justs prints out elements in arraylist
-            System.out.println("Words in ban list");
-            System.out.println(name);
-            //prints out elements in blacklist
-            System.out.println("Blacklisted words");
-            System.out.println(wu);
+            if (choice == false){
+                System.out.println("Re-do successful");
+            }
+            if (choice == true){
+            displayblacklist(name, wu);}
+
         }//end giant for
     }//end rego
 
-    public void ManualBlacklist(ArrayList<String> banlist, ArrayList<String> namelist, ArrayList collect) throws FileNotFoundException{
+    public void ManualBlacklist(ArrayList<String> banlist, ArrayList<String> namelist, ArrayList<String> collect) throws FileNotFoundException{
 
         while(true){
             int last = banlist.size() - 1;
@@ -628,6 +628,15 @@ public class Create {
 
     }
 
+    public void displayblacklist(ArrayList<String> banlist, ArrayList<String> blacklist){
+        // justs prints out elements in arraylist
+        System.out.println("Words in ban list");
+        System.out.println(banlist);
+        //prints out elements in blacklist
+        System.out.println("Blacklisted words");
+        System.out.println(blacklist);
+
+    }
 
 
 }// end Create
