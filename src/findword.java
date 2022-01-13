@@ -3,8 +3,10 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+//for next time- add a way to find words with -1,-2,...-6. Probably put "-1" around the number and make the scanner skip it in those instances. or just say if word == "-1" then word = -1
 
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
@@ -26,7 +28,7 @@ public class findword {
         ArrayList<String> te = new ArrayList<>();
 
 
-        //This controls the load
+        //This makes sure that there is no duplicates
         Scanner sc5 = new Scanner(new FileInputStream(String.valueOf(c3.g5))); // ban.txt
 
 
@@ -179,10 +181,20 @@ public class findword {
 
         //this while and for loop gather info to make sure that the names have no duplicates
         while(sc5.hasNextLine()) {
-            sc5.skip("/ban");
-            String bean = sc5.nextLine();
+           try {
+               sc5.skip("/ban");
+               String bean = sc5.nextLine();
 //            System.out.println(bean);
-            bc.add(bean);
+               bc.add(bean);
+               System.out.println(bean);
+           }catch (NoSuchElementException e){
+              String bean = sc5.nextLine();// had to have something here
+//               bc.add(bean);
+
+//               System.out.println(bean);
+
+           }
+
 
         }// end small while
 
@@ -191,10 +203,32 @@ public class findword {
                 //no statement needed.
             }
             else{
-                fc.add(name.get(i));
+                bc.add(name.get(i));//changed from fc
+                fc.add(name.get(i));// re added fc to try and fix problem
             }
 
         }
+        //added this for loop to fully fix word problem
+//        for(int i = 0; i < bc.size();i++){
+//            try{
+//                for(int j = 0; j<fc.size(); j++){
+//                if(bc.get(i).contains(fc.get(j))){
+//                    bc.remove(i);
+//                    System.out.println("loop completed " + i);
+//                }
+//                }
+//
+//
+//            }catch (ArrayIndexOutOfBoundsException e){
+//                System.err.println(e);
+//                System.out.println("okay" + e);
+//
+//            }
+//
+//
+//        }
+        //this is the end I am not done if bc contains fc remove the bc
+
 
         //shows the words then prints them into ban.txt with the correct ban format
         System.out.println("\nBanned names are: ");
@@ -211,8 +245,8 @@ public class findword {
             System.out.println(names);
         }
 
-
-        c3.ArrayOutput(String.valueOf(c3.g5), fc, "/ban","");
+        c3.ClearDocument(String.valueOf(c3.g5));
+        c3.ArrayOutput(String.valueOf(c3.g5), bc, "/ban","");
 
     }// end psvm
 }// end findword
