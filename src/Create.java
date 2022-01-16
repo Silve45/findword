@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Create {
@@ -271,13 +270,13 @@ public class Create {
 //        System.out.println("Exiting Remove method");
     }//end overloaded remove
 
-    public void rego(String path, String on, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
+    public void rego(String path, String on, Scanner sc1, String word,String check, ArrayList<String> blacklist, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         System.out.println("rechecking document for new occurrences of blacklist words");
 
 
 
-        for(int i = 0; i < wu.size(); i++) {
-            word = String.valueOf(wu.get(i));// trying to get all the words instead of just one
+        for(int i = 0; i < blacklist.size(); i++) {
+            word = String.valueOf(blacklist.get(i));// trying to get all the words instead of just one
             System.out.println("\nWord being checked is " + word);
 
             boolean choice;
@@ -339,11 +338,11 @@ public class Create {
                             name.addAll(ga);// replaced for loop, because it said I could
 
                             //this code is supposed to add a new banned word and ignore old (FIXED!!!)
-                            if (wu.contains(word)) {
+                            if (blacklist.contains(word)) {
                                 ga.clear();
                                 break;
                             } else {
-                                wu.add(word);
+                                blacklist.add(word);
                                 ga.clear();
                                 break;
                             }
@@ -365,11 +364,11 @@ public class Create {
                     name.addAll(ga);// replaced for loop, because it said I could
 
                     //this code is supposed to add a new banned word and ignore old (FIXED!!!)
-                    if (wu.contains(word)) {
+                    if (blacklist.contains(word)) {
                         ga.clear();
 //                        break;
                     } else {
-                        wu.add(word);
+                        blacklist.add(word);
                         ga.clear();
 //                        break;
                     }
@@ -383,7 +382,7 @@ public class Create {
                 System.out.println("Re-do successful");
             }
             if (choice == true){
-            displayblacklist(name, wu);}
+            displayblacklist(name, blacklist);}
 
         }//end giant for
     }//end rego
@@ -482,7 +481,7 @@ public class Create {
         }
     }//end ManualBlacklist
 
-    public void FindWord(String path, Scanner sc1, String word,String check, ArrayList<String> wu, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
+    public void FindWord(String path, Scanner sc1, String word,String check, ArrayList<String> blacklist, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
         //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
 
 
@@ -558,12 +557,12 @@ public class Create {
                     System.out.println("Adding occurrence(s)");
                     name.addAll(ga);
 
-                    if(wu.contains(word)){
+                    if(blacklist.contains(word)){
                         ga.clear();
                         break;
                     }
                     else {
-                        wu.add(word);
+                        blacklist.add(word);
                         ga.clear();
                         break;
                     }
@@ -582,7 +581,7 @@ public class Create {
                     you = sc1.nextLine();
                     if (you.equalsIgnoreCase(Y)){
                         System.out.println("Adding word");
-                        wu.add(word);
+                        blacklist.add(word);
                         break;
                     }
                     else if (you.equalsIgnoreCase(N)){
@@ -610,7 +609,7 @@ public class Create {
                 you = sc3.nextLine();
                 if (you.equalsIgnoreCase(Y)){
                     System.out.println("Adding word");
-                    wu.add(word);
+                    blacklist.add(word);
                     break;
                 }
                 else if (you.equalsIgnoreCase(N)){

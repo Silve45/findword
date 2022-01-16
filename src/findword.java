@@ -6,7 +6,6 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-//for next time- add a way to find words with -1,-2,...-6. Probably put "-1" around the number and make the scanner skip it in those instances. or just say if word == "-1" then word = -1
 
 public class findword {
     public static void main(String[] args) throws FileNotFoundException {
@@ -18,8 +17,8 @@ public class findword {
         String Y = "Y";
         String N = "N";
         String O = "O";
-        ArrayList<String> name = new ArrayList<>(); // this collects names and then at the end puts them in banlist
-        ArrayList<String> wu = new ArrayList<>(); // aka banlist
+        ArrayList<String> banlist = new ArrayList<>(); // this collects names and then at the end puts them in banlist
+        ArrayList<String> blacklist = new ArrayList<>(); // aka blacklist
         ArrayList<String> ga = new ArrayList<>(); // aka collector
         ArrayList<String> fc = new ArrayList<>(); // checks names to see if they are already in banlist
         ArrayList<String> bc = new ArrayList<>(); // checks banned words to see if they match already banned words
@@ -41,7 +40,7 @@ public class findword {
 
         String word = sc1.nextLine();
 
-        if (wu.contains(word)){
+        if (blacklist.contains(word)){
             System.out.println("Word already on blacklist");
             continue;
         }
@@ -55,7 +54,7 @@ public class findword {
 
         //displays contents of Banlist and black list ( at any time )
         else if (word.equalsIgnoreCase("-6")){
-            c3.displayblacklist(name,wu);
+            c3.displayblacklist(banlist,blacklist);
         }// end of displaylist -6
 
           //deletes words from list
@@ -74,13 +73,13 @@ public class findword {
                 if (check2.equalsIgnoreCase(Y)){
                     System.out.println("loading");
 
-                    c3.PrintInput(String.valueOf(c3.g7),N,wu);
+                    c3.PrintInput(String.valueOf(c3.g7),N,blacklist);
                     System.out.println("load successful \nWould you like to use rego now?");
 
                     while (true){
                     check2 = sc3.nextLine();
                     if (check2.equalsIgnoreCase(Y)){
-                        c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,wu,name,ga);
+                        c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,blacklist,banlist,ga);
                         break;
                     }
                     else if(check2.equalsIgnoreCase(N)){
@@ -93,7 +92,7 @@ public class findword {
                     }
                     }//end while true
 
-//                    System.out.println("Load Successful" +"\n" + wu + "\nPlease be sure to use re-go to check for occurrences");
+//                    System.out.println("Load Successful" +"\n" + blacklist + "\nPlease be sure to use re-go to check for occurrences");
                     break;
                 }
                 else if (check2.equalsIgnoreCase(N)){
@@ -110,7 +109,7 @@ public class findword {
 
         //manual add in words to black list
        else if (word.equalsIgnoreCase("-3")){
-            c3.ManualBlacklist(wu, name,ga);
+            c3.ManualBlacklist(blacklist, banlist,ga);
 
             Scanner sc3 = new Scanner(System.in);
             String check2;
@@ -118,7 +117,7 @@ public class findword {
             while (true){
                 check2 = sc3.nextLine();
                 if (check2.equalsIgnoreCase(Y)){
-                    c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,wu,name,ga);
+                    c3.rego(String.valueOf(c3.g3),"n",sc1,word,check,blacklist,banlist,ga);
                     break;
                 }
                 else if(check2.equalsIgnoreCase(N)){
@@ -135,7 +134,7 @@ public class findword {
 
         //the rechecks document for new occurances of words
        else if (word.equalsIgnoreCase("-2")){
-            c3.rego(String.valueOf(c3.g3),"o",sc1,word,check,wu,name,ga);
+            c3.rego(String.valueOf(c3.g3),"o",sc1,word,check,blacklist,banlist,ga);
             continue;
         }//end of re-do (-2)
 
@@ -143,17 +142,17 @@ public class findword {
   //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
         else {
             word = word;
-            c3.FindWord(String.valueOf(c3.g3),sc1,word,check,wu,name,ga);
+            c3.FindWord(String.valueOf(c3.g3),sc1,word,check,blacklist,banlist,ga);
         }
             if (!word.equalsIgnoreCase("-6")){
-                 c3.displayblacklist(name,wu);
+                 c3.displayblacklist(banlist,blacklist);
             }
         }//end giant while
 
-        System.out.println("Blacklist words are " + wu);
+        System.out.println("Blacklist words are " + blacklist);
         String list;
-        for (int i = 0; i < wu.size(); i++){
-            list = wu.get(i);
+        for (int i = 0; i < blacklist.size(); i++){
+            list = blacklist.get(i);
 //            System.out.println(list);
         }
 
@@ -167,7 +166,7 @@ public class findword {
                 //these 3 lines wipe the old blacklist, so it can be fully overwritten
               c3.ClearDocument(String.valueOf(c3.g7));
 
-                c3.ArrayOutput(String.valueOf(c3.g7),wu,"","");
+                c3.ArrayOutput(String.valueOf(c3.g7),blacklist,"","");
                 break;
             } else if (c1.equalsIgnoreCase(N)) {
                 System.out.println("Not saving black list words");
@@ -186,7 +185,7 @@ public class findword {
                String bean = sc5.nextLine();
 //            System.out.println(bean);
                bc.add(bean);
-               System.out.println(bean);
+//               System.out.println(bean);
            }catch (NoSuchElementException e){
               String bean = sc5.nextLine();// had to have something here
 //               bc.add(bean);
@@ -198,36 +197,17 @@ public class findword {
 
         }// end small while
 
-        for ( int i = 0; i < name.size(); i ++){
-            if (bc.contains(name.get(i))){
+        for ( int i = 0; i < banlist.size(); i ++){
+            if (bc.contains(banlist.get(i))){
                 //no statement needed.
             }
             else{
-                bc.add(name.get(i));//changed from fc
-                fc.add(name.get(i));// re added fc to try and fix problem
+                bc.add(banlist.get(i));//changed from fc
+                fc.add(banlist.get(i));// re added fc to try and fix problem
             }
 
         }
-        //added this for loop to fully fix word problem
-//        for(int i = 0; i < bc.size();i++){
-//            try{
-//                for(int j = 0; j<fc.size(); j++){
-//                if(bc.get(i).contains(fc.get(j))){
-//                    bc.remove(i);
-//                    System.out.println("loop completed " + i);
-//                }
-//                }
-//
-//
-//            }catch (ArrayIndexOutOfBoundsException e){
-//                System.err.println(e);
-//                System.out.println("okay" + e);
-//
-//            }
-//
-//
-//        }
-        //this is the end I am not done if bc contains fc remove the bc
+
 
 
         //shows the words then prints them into ban.txt with the correct ban format
@@ -235,8 +215,8 @@ public class findword {
 
 
         String names;
-        for (int i = 0; i < name.size(); i++){
-             names = name.get(i);
+        for (int i = 0; i < banlist.size(); i++){
+             names = banlist.get(i);
             System.out.println(names);
         }
         System.out.println("\nNew banned names are: ");
