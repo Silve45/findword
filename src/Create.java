@@ -535,12 +535,29 @@ public class Create {
                     System.out.println("Add occurrence(s) to ban list?");
                     break;
                 }
-
+//
                 else if (count == 0) {
                     String you;
                     System.out.println("No new words to add.");
-                    System.out.println("file does not contain new instance of " + word
-                    );
+                    System.out.println("file does not contain new instance of " + word);
+                    if (blacklist.contains(word)){
+                        //this should never be called, but is here to catch people who get past
+                        System.out.println("no need to add, already on blacklist");
+                    }
+                    else if(!blacklist.contains(word)){
+                        System.out.println("Add word to blacklist?");
+                    }
+                    check = sc1.nextLine();
+                    if (check.equalsIgnoreCase(Y)){
+                        System.out.println("Adding occurrence(s)");
+                        name.add(word);
+                        ga.clear();
+                    }
+                    else if (check.equalsIgnoreCase(N)){
+                        System.out.println("Occurrence(s) not added");
+                        ga.clear();//this needs to be line or an equivalent
+                        break;
+                    }
                     break;
                 }
 

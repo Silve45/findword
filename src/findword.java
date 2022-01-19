@@ -46,12 +46,6 @@ public class findword {
         }
 
 
-        //goes to end of program
-      else if (word.equalsIgnoreCase("-1")){
-            System.out.println("exiting");
-            break;
-        }//end of exit (-1)
-
         //displays contents of Banlist and black list ( at any time )
         else if (word.equalsIgnoreCase("-6")){
             c3.displayblacklist(banlist,blacklist);
@@ -138,6 +132,11 @@ public class findword {
             continue;
         }//end of re-do (-2)
 
+        //goes to end of program
+        else if (word.equalsIgnoreCase("-1")){
+            System.out.println("exiting");
+            break;
+        }//end of exit (-1)
 
   //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
         else {
