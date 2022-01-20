@@ -36,7 +36,7 @@ public class findword {
 
         //choose what you will do
         Scanner sc1 = new Scanner(System.in);
-        System.out.println("\nEnter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from ban list\n-6 to display the contents of the banlist and blacklist");
+        System.out.println("\nEnter any word to begin \n-1 to exit \n-2 to re-go over blacklist words \n-3 to manually add or delete blacklist words \n-4 to load previous save \n-5 to delete scanned words from banlist \n-6 to display the contents of the banlist and blacklist");
 
         String word = sc1.nextLine();
 
@@ -46,7 +46,7 @@ public class findword {
         }
 
 
-        //displays contents of Banlist and black list ( at any time )
+        //displays contents of Banlist and blacklist ( at any time )
         else if (word.equalsIgnoreCase("-6")){
             c3.displayblacklist(banlist,blacklist);
         }// end of displaylist -6
@@ -68,7 +68,7 @@ public class findword {
                     System.out.println("loading");
 
                     c3.PrintInput(String.valueOf(c3.g7),N,blacklist);
-                    System.out.println("load successful \nWould you like to use rego now?");
+                    System.out.println("Load successful \nWould you like to use Rego now?");
 
                     while (true){
                     check2 = sc3.nextLine();
@@ -77,7 +77,7 @@ public class findword {
                         break;
                     }
                     else if(check2.equalsIgnoreCase(N)){
-                        System.out.println("Alright, use the Rego at your own discretion then");
+                        System.out.println("Alright, use the Rego method at your own discretion then");
                         break;
                     }
                     else {
@@ -101,13 +101,13 @@ public class findword {
         }// end of load (-4)
 
 
-        //manual add in words to black list
+        //manual add in words to blacklist
        else if (word.equalsIgnoreCase("-3")){
             c3.ManualBlacklist(blacklist, banlist,ga);
 
             Scanner sc3 = new Scanner(System.in);
             String check2;
-            System.out.println("Would like like to use rego now?");
+            System.out.println("Would like like to use Rego now?");
             while (true){
                 check2 = sc3.nextLine();
                 if (check2.equalsIgnoreCase(Y)){
@@ -115,7 +115,7 @@ public class findword {
                     break;
                 }
                 else if(check2.equalsIgnoreCase(N)){
-                    System.out.println("Alright, use the Rego at your own discretion then");
+                    System.out.println("Alright, use the Rego method at your own discretion then");
                     break;
                 }
                 else {
@@ -138,7 +138,7 @@ public class findword {
             break;
         }//end of exit (-1)
 
-  //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
+  //if you write a word in, it checks to see if it is contained and if it is it will add the word to banlist. If not, you still can add that word to banlist
         else {
             word = word;
             c3.FindWord(String.valueOf(c3.g3),sc1,word,check,blacklist,banlist,ga);
@@ -168,7 +168,7 @@ public class findword {
                 c3.ArrayOutput(String.valueOf(c3.g7),blacklist,"","");
                 break;
             } else if (c1.equalsIgnoreCase(N)) {
-                System.out.println("Not saving black list words");
+                System.out.println("Not saving blacklist words");
                 break;
             } else {
                 System.out.println("Please you Y or N");

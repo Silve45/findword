@@ -100,9 +100,9 @@ public class Create {
             System.out.println(sc1.nextLine());
            }// end while
         }
-        else {
-            //nothing to see here
-        }//end check
+        // deleted empty else loop
+        //end check
+
 
         try {
         if (Add.equals(null)){
@@ -145,7 +145,7 @@ public class Create {
             int count = 0;
 //        System.out.println("Contents of the line"); // part of the sout(line) thing below
             //Reading the contents of the file
-            System.out.println("Print a word to be deleted (-1 to exit, press enter to include all the words)");
+            System.out.println("Print a word to be deleted \n-1 to exit \nPress enter to include all the words");
             String word = sc1.nextLine();
             Scanner sc2 = new Scanner(new FileInputStream(path));
 
@@ -155,7 +155,7 @@ public class Create {
             }
 
             // if it doesn't equal -1 we can keep going
-            String line = "lll";
+            String line;
             while (sc2.hasNextLine()) {
                 line = sc2.nextLine();
 //            System.out.println(line); // removing, because it is too cumbersome to keep using that over and over again
@@ -164,16 +164,15 @@ public class Create {
 
                     if (bean.contains(line)) {
                         count = count + 1;
-                    } else {
-                        continue;
                     }
+                    // removed else statement
                 }// end line .contains
             }//end small while
 
             if (flag) {
                 System.out.println("File contains the specified word");
                 System.out.println("Number of new occurrences is: " + count);
-                System.out.println("Do you want to remove all occurrences from ban list?");
+                System.out.println("Do you want to remove all occurrences from banlist?");
 
 
                 while (true) {
@@ -214,7 +213,7 @@ public class Create {
         while (true) {// begin big while
             ArrayList<String> gather = new ArrayList<>();
              ArrayList<String >bean = new ArrayList<>();
-            Scanner sc1 = new Scanner(System.in);
+            // deleted scanner sc1
             PrintInput(path, "n", bean);
 
             boolean flag = false;
@@ -238,9 +237,8 @@ public class Create {
 
                     if (bean.contains(line)) {
                         count = count + 1;
-                    } else {
-                        continue;
                     }
+                    //removed empty else statement
                 }// end line .contains
             }//end small while
 
@@ -271,7 +269,7 @@ public class Create {
     }//end overloaded remove
 
     public void rego(String path, String on, Scanner sc1, String word,String check, ArrayList<String> blacklist, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
-        System.out.println("rechecking document for new occurrences of blacklist words");
+        System.out.println("Rechecking document for new occurrences of blacklist words");
 
 
 
@@ -308,7 +306,8 @@ public class Create {
                         ga.add(line);
                     }//end if
                     else if (name.contains(line)){
-                        ga.remove(ga);
+                        //ga.remove(ga); changed it, to simpify code
+                        ga.clear();
                     }
                     else {
                         ga.add(line);
@@ -324,7 +323,7 @@ public class Create {
 
                 if (choice == true) {
                     if (count != 0) {
-                        System.out.println("Add occurrence(s) to ban list?");
+                        System.out.println("Add occurrence(s) to banlist?");
                     }
                     while (true) {
                         if (count != 0) {
@@ -377,7 +376,7 @@ public class Create {
                 System.out.println("File does not contain the specified word");
                 ga.clear();
             }
-            // justs prints out elements in arraylist
+            // all it does is prints out elements in arraylist
             if (choice == false){
                 System.out.println("Re-do successful");
             }
@@ -394,7 +393,7 @@ public class Create {
             int i = 0;
 
             Scanner a1 = new Scanner(System.in);
-            System.out.println("Manually add words to black list, -1 to exit, -2 to go into delete mode");
+            System.out.println("Manually add words to blacklist \n-1 to exit \n-2 to go into delete mode");
             String a2 = a1.nextLine();
 
             if (a2.equals("-1")){
@@ -407,7 +406,7 @@ public class Create {
                         {
                             System.out.print("("+j+") "+ banlist.get(j) + ", ");
                         }
-                        System.out.println("\nWhich word would you like to delete? (first number is 0, -1 to leave)");
+                        System.out.println("\nWhich word would you like to delete? \nFirst number is 0 \n-1 to leave");
                         Scanner ic = new Scanner(System.in);
                         i = ic.nextInt();
                         System.out.println("Deleting " + banlist.get(i));
@@ -430,19 +429,18 @@ public class Create {
 
 
                         while (true){
-                        System.out.println("Would you like to delete occurances in ban list also? Y or N?");
+                        System.out.println("Would you like to delete occurrences in banlist also? Y or N?");
                         a2 = a1.nextLine();
                         if (a2.equalsIgnoreCase(Y)){
                             remove(String.valueOf(g5), banlist.get(i));
                             break;
                         }
                         else if (a2.equalsIgnoreCase(N)){
-                            System.out.println("Not removing occurances");
+                            System.out.println("Not removing occurrences");
                             break;
                         }
                         else {
                             System.out.println("Please use Y or N");
-                            continue;
                         }
                         }// end while
                         banlist.remove(i);
@@ -481,8 +479,8 @@ public class Create {
         }
     }//end ManualBlacklist
 
-    public void FindWord(String path, Scanner sc1, String word,String check, ArrayList<String> blacklist, ArrayList<String> name, ArrayList <String> ga ) throws FileNotFoundException {
-        //if you write a word in, it checks to see if it is contained and if it is it will add the word to ban list. If not, you still can add that word to ban list
+    public void FindWord(String path, Scanner sc1, String word,String check, ArrayList<String> blacklist, ArrayList<String> banlist, ArrayList <String> ga ) throws FileNotFoundException {
+        //if you write a word in, it checks to see if it is contained and if it is it will add the word to banlist. If not, you still can add that word to banlist
 
 
         if (word == null){
@@ -507,7 +505,7 @@ public class Create {
             if(line.contains(word)) {
                 flag = true;
 
-                if(!name.contains(line)){
+                if(!banlist.contains(line)){
                     count = count+1;
                 }
                 else{
@@ -515,11 +513,12 @@ public class Create {
                 }
 
 
-                if(name.isEmpty()){
+                if(banlist.isEmpty()){
                     ga.add(line);
                 }//end if
-                else if (name.contains(line)){
-                    ga.remove(ga);
+                else if (banlist.contains(line)){
+//                    ga.remove(ga); same reason as other one
+                    ga.clear();
                 }
                 else {
                     ga.add(line);
@@ -532,17 +531,17 @@ public class Create {
             System.out.println("Number of new occurrences is: "+count);
             while (true){
                 if (count != 0){
-                    System.out.println("Add occurrence(s) to ban list?");
+                    System.out.println("Add occurrence(s) to banlist?");
                     break;
                 }
 //
                 else if (count == 0) {
-                    String you;
+                    //deleted String you
                     System.out.println("No new words to add.");
-                    System.out.println("file does not contain new instance of " + word);
+                    System.out.println("File does not contain new instance of " + word);
                     if (blacklist.contains(word)){
                         //this should never be called, but is here to catch people who get past
-                        System.out.println("no need to add, already on blacklist");
+                        System.out.println("Word already on blacklist \nSkipping word");
                     }
                     else if(!blacklist.contains(word)){
                         System.out.println("Add word to blacklist?");
@@ -550,7 +549,7 @@ public class Create {
                     check = sc1.nextLine();
                     if (check.equalsIgnoreCase(Y)){
                         System.out.println("Adding occurrence(s)");
-                        name.add(word);
+                        blacklist.add(word);
                         ga.clear();
                     }
                     else if (check.equalsIgnoreCase(N)){
@@ -572,7 +571,7 @@ public class Create {
                 check = sc1.nextLine();
                 if (check.equalsIgnoreCase(Y)){
                     System.out.println("Adding occurrence(s)");
-                    name.addAll(ga);
+                    banlist.addAll(ga);
 
                     if(blacklist.contains(word)){
                         ga.clear();
@@ -617,9 +616,7 @@ public class Create {
         } else {
             String you; //Why did I name it, you? No idea...
             System.out.println("File does not contain the specified word");
-            System.out.println("Do you still want to add " + word + " to black list?"
-                    + "\nUse Y or N"
-            );
+            System.out.println("Do you still want to add " + word + " to blacklist?" + "\nUse Y or N");
 
             while (true){
                 Scanner sc3 =  new Scanner(System.in);
@@ -635,7 +632,6 @@ public class Create {
                 }
                 else {
                     System.out.println("Please use Y or N");
-                    continue;
                 }
             }
 
@@ -645,8 +641,8 @@ public class Create {
     }
 
     public void displayblacklist(ArrayList<String> banlist, ArrayList<String> blacklist){
-        // justs prints out elements in arraylist
-        System.out.println("Words in ban list");
+        //all it does is prints out elements in arraylist
+        System.out.println("Words in banlist");
         System.out.println(banlist);
         //prints out elements in blacklist
         System.out.println("Blacklisted words");
