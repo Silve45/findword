@@ -1,8 +1,6 @@
 //I started with a tutorial to find words, and then made this monstrosity...
 import java.io.*;
-import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -20,7 +18,7 @@ public class findword {
         ArrayList<String> banlist = new ArrayList<>(); // this collects names and then at the end puts them in banlist
         ArrayList<String> blacklist = new ArrayList<>(); // aka blacklist
         ArrayList<String> ga = new ArrayList<>(); // aka collector
-        ArrayList<String> fc = new ArrayList<>(); // checks names to see if they are already in banlist
+        ArrayList<String> fc = new ArrayList<>(); // checks words in banlist to see if they are already in banlist
         ArrayList<String> bc = new ArrayList<>(); // checks banned words to see if they match already banned words
 
         //testing arraylist
@@ -82,7 +80,6 @@ public class findword {
                     }
                     else {
                         System.out.println("Please use Y or N");
-                        continue;
                     }
                     }//end while true
 
@@ -120,7 +117,6 @@ public class findword {
                 }
                 else {
                     System.out.println("Please use Y or N");
-                    continue;
                 }
             }//end while true
             continue;
@@ -172,7 +168,6 @@ public class findword {
                 break;
             } else {
                 System.out.println("Please you Y or N");
-                continue;
             }
         }
 
@@ -187,9 +182,6 @@ public class findword {
 //               System.out.println(bean);
            }catch (NoSuchElementException e){
               String bean = sc5.nextLine();// had to have something here
-//               bc.add(bean);
-
-//               System.out.println(bean);
 
            }
 
