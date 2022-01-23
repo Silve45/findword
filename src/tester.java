@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class tester {
     public static void main(String[] args) throws FileNotFoundException {
         Create c2 = new Create();
+        SQL c3 = new SQL();
 
+        c3.displayTables();
 
         ArrayList<String> ga = new ArrayList<>(), name = new ArrayList<>(), wu = new ArrayList<>();
         String check = "";

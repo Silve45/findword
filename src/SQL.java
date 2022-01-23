@@ -1,15 +1,15 @@
 import java.sql.*;
 
-public class MYSQLConnection {
-    public static void main(String[] args) {
+public class SQL {
+
+    public void displayTables(){
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/hr?&serverTimezone=UTC";// switched names and hr
         String user = "root";
         String password = "root";
-
         try {
             Class.forName(driver);
-            String query = "";  //"SELECT * FROM departments"; //WHERE manager_id = 200";
+            String query = "SELECT * FROM employees"; // From departments * WHERE manager_id = 200";
             try (Connection con = DriverManager.getConnection(url, user, password);
                  Statement st = con.createStatement();
                  ResultSet rs = st.executeQuery(query)) {
@@ -32,8 +32,9 @@ public class MYSQLConnection {
         catch (ClassNotFoundException e) {
             System.out.println(e);
         }//end try catch
+         }
 
-    }//end main
+
 
     public static int getColumnNames(ResultSet rs) throws SQLException {
         int numberOfColumns = 0;
